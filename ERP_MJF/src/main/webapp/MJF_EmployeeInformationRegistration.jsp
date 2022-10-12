@@ -108,7 +108,7 @@ body {
 </style>
 </head>
 <body>
-	
+
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-title col-md-12 mx-auto">
@@ -119,48 +119,61 @@ body {
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
-				<form action="process.jsp" method="post" class="validation-form" novalidate>
-				
+				<form action="process.jsp" method="post" class="validation-form"
+					novalidate>
+
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label for="Lname">이름</label> <input type="text"
-								class="form-control" name="name" id="name" placeholder="" value="" required>
+								class="form-control" name="memname" id="memname" placeholder=""
+								value="" required>
 							<div class="invalid-feedback">이름을 입력해주세요.</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6 mb-3">
-							<label for="department">부서</label> <input type="text"
-								class="form-control" id="department" placeholder="" value=""
-								required>
-							<div class="invalid-feedback">부서를 입력해주세요.</div>
+							<!-- <label for="team">팀</label> <input type="text"
+								class="form-control" name="memteam" id="memteam" placeholder=""
+								value="" required> -->
+							<label for="team">팀</label> <select
+								class="custom-select d-block w-100" name="memteam" id="memteam" required>
+								<option value="">-팀 선택-</option>
+								<option value="영업 1팀">영업 1팀</option>
+								<option value="영업 2팀">영업 2팀</option>
+								<option value="영업 3팀">영업 3팀</option>
+							</select>
+							<div class="invalid-feedback">팀을 입력해주세요.</div>
 						</div>
 						<div class="col-md-6 mb-3">
-							<label for="team">팀</label> <input type="text"
-								class="form-control" id="team" placeholder="" value="" required>
-							<div class="invalid-feedback">팀을 입력해주세요.</div>
+							<label for="department">직급</label> <input type="text"
+								class="form-control" name="memposition" id="memposition"
+								placeholder="" value="" required>
+							<div class="invalid-feedback">직급을 입력해주세요.</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-13 mb-3">
 							<label for="email">이메일주소</label> <input type="text"
-								class="form-control" id="email_id" placeholder="" value="" required>
+								class="form-control" name="mememail_id" id="mememail_id"
+								placeholder="" value="" required>
 							<div class="invalid-feedback">이메일을 입력해주세요.</div>
 						</div>
 						<div class="col-md-auto">
 							<label for="email" class="white">@</label>
-							 <div>@</div>
+							<div>@</div>
 						</div>
 						<div class="col-md-4 mb-3">
-							<label for="email">도메인 입력</label>
-							<input type="text" class="form-control" id="email"
+							<label for="email">도메인 입력</label> <input type="text"
+								class="form-control" name="memdomain" id="memdomain"
 								placeholder="" value="" required>
 							<div class="invalid-feedback">도메인을 입력해주세요.</div>
 						</div>
 						<div class="col-md-4 mb-3">
-							<label for="email">도메인 선택</label>
-							<select class="custom-select d-block w-100" id="root">
+							<label for="email">도메인 선택</label> <select
+								class="custom-select d-block w-100" id="emailselect"
+								onchange="chageValue()">
 								<option value="">-선택-</option>
+								<option value="">직접입력</option>
 								<option value="naver.com">naver.com</option>
 								<option value="gmail.com">gmail.com</option>
 								<option value="hanmail.net">hanmail.net</option>
@@ -174,9 +187,9 @@ body {
 					</div>
 					<div class="row">
 						<div class="col-md-8 mb-3">
-							<label for="entry">입사일</label> <input type="text"
-								class="form-control" id="entry" placeholder="" value=""
-								required>
+							<label for="entry">입사일</label> <input type="date"
+								class="form-control" name="mementry" id="mementry"
+								placeholder="" value="" required>
 							<div class="invalid-feedback">입사일을 입력해주세요.</div>
 						</div>
 
@@ -195,6 +208,15 @@ body {
 			</div>
 		</div>
 	</div>
+	<script>
+		function chageValue(){
+			var value_str = document.getElementById('emailselect');
+			//alert(value_str.options[value_str.selectedIndex].value);
+			
+			document.getElementById('memdomain').value = value_str.options[value_str.selectedIndex].value;
+		}
+	</script>
+
 	<script>
 		window.addEventListener('load', () => {
       	const forms = document.getElementsByClassName('validation-form');

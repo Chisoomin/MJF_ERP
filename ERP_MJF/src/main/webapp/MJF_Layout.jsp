@@ -80,7 +80,7 @@
 							</div>품목등록
 						</a>
 						<div class="sb-sidenav-menu-heading">거래처</div>
-						<a class="nav-link" href="?pageChange=Layout_Footer.jsp">
+						<a class="nav-link" href="?pageChange=MJF_AccountRegistration.jsp">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
 							</div>거래처등록

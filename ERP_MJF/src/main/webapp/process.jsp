@@ -8,14 +8,14 @@ Statement stmt = null;
 PreparedStatement pstmt = null;
 ResultSet rs = null;
 
-String memid = null;
+StringBuffer memid=new StringBuffer();
 request.setCharacterEncoding("utf-8");
-String name = request.getParameter("name");
-String department = request.getParameter("department");
-String team = request.getParameter("team");
-String email = request.getParameter("email_id") + "@" + request.getParameter("email_domain");
-String entrydate = request.getParameter("entry");
-String entryear = "2022";
+String name = request.getParameter("memname");
+String team = request.getParameter("memteam");
+String memposition = request.getParameter("memposition");
+String email = request.getParameter("mememail_id") + "@" + request.getParameter("memdomain");
+String entrydate = request.getParameter("mementry");
+String entryear = entrydate.substring(0, 4);
 
 
 String url = "jdbc:mysql://mjfdb-aws.cxswvbzpdoox.ap-northeast-1.rds.amazonaws.com/MJFdb";
@@ -25,56 +25,37 @@ String password = "mjfrootpw";
 Class.forName("com.mysql.jdbc.Driver");
 conn = DriverManager.getConnection(url, user, password);
 
-memid=memid +entryear;
-/* if(department.equals("영업팀")){
-	memid.append("01");
-	if(team.equals("1팀")){
-		memid.append("01");
-	}else if(team.equals("2팀")){
-		memid.append("02");
-	}else if(team.equals("3팀")){
-		memid.append("03");
-	}
-}else if(department.equals("생산팀")){
-	memid.append("02");
-	if(team.equals("1팀")){
-		memid.append("01");
-	}else if(team.equals("2팀")){
-		memid.append("02");
-	}else if(team.equals("3팀")){
-		memid.append("03");
-	}
-}else if(department.equals("물류팀")){
-	memid.append("03");
-	if(team.equals("1팀")){
-		memid.append("01");
-	}else if(team.equals("2팀")){
-		memid.append("02");
-	}else if(team.equals("3팀")){
-		memid.append("03");
-	}
-} */
-String memberid = memid.toString();
+memid.append(entryear);
+if(team.equals("영업 1팀")){
+	memid.append("0101");
+}else if(team.equals("영업 2팀")){
+	memid.append("0102");
+}else if(team.equals("영업 3팀")){
+	memid.append("0103");
+}
 
 try {
-	String sql = "SELECT num from member_table";
+	String sql = "SELECT num from member_table ORDER BY num DESC LIMIT 1";
 	stmt = conn.createStatement();
 	rs = stmt.executeQuery(sql);
 	if(rs.next()){
-		memid="00"+rs.getInt(1);
+		if(rs.getInt(1)+1<10){
+			memid.append("00"+(rs.getInt(1)+1));
+		}else{
+			memid.append("0"+(rs.getInt(1)+1));
+		}		
 	}else{
-		memid=memid + "001";
+		memid.append("001");
 	}
-	pstmt = conn.prepareStatement("insert into member_table (member_id, member_name, email_address, department, team, entrydate) " + "values(?,?,?,?,?,?)");
-	pstmt.setString(1, memberid);
+	pstmt = conn.prepareStatement("insert into member_table (member_id, member_name, email_address, team, memposition, entrydate) " + "values(?,?,?,?,?,?)");
+	pstmt.setString(1, memid.toString());
 	pstmt.setString(2, name);
 	pstmt.setString(3, email);
-	pstmt.setString(4, department);
-	pstmt.setString(5, team);
+	pstmt.setString(4, team);
+	pstmt.setString(5, memposition);
 	pstmt.setString(6, entrydate);
 
 	pstmt.executeUpdate();
-	//out.println("<script>alert('db 연결 성공');</script>");
 
 } catch (SQLException ex) {
 	out.println("SQLException " + ex.getMessage());
@@ -85,6 +66,8 @@ try {
 		stmt.close();
 	if (conn != null)
 		conn.close();
+	
+	response.sendRedirect("MJF_Layout.jsp?pageChange=MJF_EmployeeInformationRegistration.jsp");
 }
 %>
 <!DOCTYPE html>
@@ -94,6 +77,6 @@ try {
 <title>Insert title here</title>
 </head>
 <body>
-<script>alert(name);</script>
-</body>
+<!-- <script>alert(name);</script>
+ --></body>
 </html>
