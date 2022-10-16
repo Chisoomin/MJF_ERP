@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="./css/styles2.css" />
 <link rel="stylesheet" href="./css/styles.css" />
 
 <style>
