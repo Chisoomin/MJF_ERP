@@ -11,7 +11,7 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>MyongJi Furniture ERP</title>
-<link href="startbootstrap-sb-admin-gh-pages/css/styles.css"
+<link href="css/styles.css"
 	rel="stylesheet" />
 <link href="./css/styles.css" rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
@@ -90,10 +90,15 @@
 							</div>거래처현황
 						</a>
 						<div class="sb-sidenav-menu-heading">수주</div>
+						<a class="nav-link"
+							href="?pageChange=orderRegistration.jsp">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-tachometer-alt"></i>
+							</div>수주등록
+						</a>
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
 							data-bs-target="#collapseLayouts" aria-expanded="false"
-							aria-controls="collapseLayouts">
-							<a class="nav-link"
+							aria-controls="collapseLayouts"
 							href="?pageChange=orderRegistration.jsp">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-columns"></i>
