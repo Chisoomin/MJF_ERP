@@ -16,16 +16,22 @@ CREATE TABLE MJFdb.member_webidpw (
  member_webid     VARCHAR(20),
  member_webpw    VARCHAR(20)
 );
+
+CREATE TABLE MJFdb.masterdata_team (
+ num        INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ team_data    VARCHAR(10)
+);
 use MJFdb;
 drop table MJFdb.member_table;
 drop table MJFdb.sales;
+drop table MJFdb.masterdata_team;
 
 select * from MJFdb.member_table;
 
-insert into
+insert into MJFdb.masterdata_team(team_data) values('영업 4팀');
 
 select * from MJFdb.account_table;
 select * from MJFdb.order_table;
-
+select * from MJFdb.masterdata_team;
 
 select * from MJFdb.member_webidpw;

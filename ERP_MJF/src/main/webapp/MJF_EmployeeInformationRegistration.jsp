@@ -3,9 +3,11 @@
 <%@page import="java.sql.*"%>
 
 <%
+String team_rs[]=new String[10];
 Connection conn = null;
 Statement stmt = null;
 ResultSet rs = null;
+int columnCount=0;
 
 String url = "jdbc:mysql://mjfdb-aws.cxswvbzpdoox.ap-northeast-1.rds.amazonaws.com/MJFdb";
 String user = "MJFdbRoot";
@@ -15,9 +17,18 @@ Class.forName("com.mysql.jdbc.Driver");
 conn = DriverManager.getConnection(url, user, password);
 
 try {
-	//		String sql = "SELECT word, ppl from tablename where id='"+id+"'";
+	String sql = "SELECT team_data from MJFdb.masterdata_team order by team_data asc";
 	stmt = conn.createStatement();
-	out.println("<script>alert('db 연결 성공');</script>");
+	rs = stmt.executeQuery(sql);
+	/* ResultSetMetaData rsmd = rs.getMetaData();
+	columnCount = rsmd.getColumnCount(); */
+	int i = 0;
+	while(rs.next()){
+		team_rs[i] = rs.getString(1);
+		i++;
+	}
+	/* out.println("<script>alert('"+team_rs[2]+"');</script>"); */
+	
 
 } catch (SQLException ex) {
 	out.println("SQLException " + ex.getMessage());
@@ -112,7 +123,7 @@ body {
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-title col-md-12 mx-auto">
-				<h1>사원정보등록</h1>
+				<h1>영업사원등록</h1>
 			</div>
 		</div>
 	</div>
@@ -138,9 +149,17 @@ body {
 							<label for="team">팀</label> <select
 								class="custom-select d-block w-100" name="memteam" id="memteam" required>
 								<option value="">-팀 선택-</option>
-								<option value="영업 1팀">영업 1팀</option>
+								<%
+									int x = 0;
+									
+									for(x=0;x<team_rs.length;x++){
+										if(team_rs[x]==null)continue;
+										out.println("<option value=" + team_rs[x]+">"+team_rs[x]+"</option>");
+									}
+								%>
+								<!-- <option value="영업 1팀">영업 1팀</option>
 								<option value="영업 2팀">영업 2팀</option>
-								<option value="영업 3팀">영업 3팀</option>
+								<option value="영업 3팀">영업 3팀</option> -->
 							</select>
 							<div class="invalid-feedback">팀을 입력해주세요.</div>
 						</div>

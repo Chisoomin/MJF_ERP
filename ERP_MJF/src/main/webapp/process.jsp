@@ -6,6 +6,8 @@
 Connection conn = null;
 Statement stmt = null;
 PreparedStatement pstmt = null;
+PreparedStatement pstmt2 = null;
+
 ResultSet rs = null;
 
 StringBuffer memid=new StringBuffer();
@@ -56,6 +58,12 @@ try {
 	pstmt.setString(6, entrydate);
 
 	pstmt.executeUpdate();
+	
+	pstmt2 = conn.prepareStatement("insert into member_webidpw (member_webid, member_webpw) " + "values(?,?)");
+	pstmt2.setString(1, memid.toString());
+	pstmt2.setString(2, memid.toString());
+	
+	pstmt2.executeUpdate();
 
 } catch (SQLException ex) {
 	out.println("SQLException " + ex.getMessage());

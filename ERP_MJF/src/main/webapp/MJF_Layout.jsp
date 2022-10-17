@@ -40,9 +40,9 @@
 		<form
 			class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
 			<div class="input-group">
-				<input class="form-control" type="text" placeholder="Search for..."
+				<!-- <input class="form-control" type="text" placeholder="Search for..."
 					aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-				<button class="btn btn-primary" id="btnNavbarSearch" type="button">
+				<button class="btn btn-primary" id="btnNavbarSearch" type="button"> -->
 					<i class="fas fa-search"></i>
 				</button>
 			</div>
@@ -68,7 +68,12 @@
 				id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
-						<div class="sb-sidenav-menu-heading">기준정보관리</div>
+						<div class="sb-sidenav-menu-heading">기준정보</div>
+						<a class="nav-link" href="?pageChange=MJF_MasterdataRegister.jsp">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-tachometer-alt"></i>
+							</div>기준정보관리
+						</a>
 						<a class="nav-link" href="?pageChange=MJF_EmployeeInformationRegistration.jsp">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
@@ -79,6 +84,7 @@
 								<i class="fas fa-tachometer-alt"></i>
 							</div>품목등록
 						</a>
+						
 						<div class="sb-sidenav-menu-heading">거래처</div>
 						<a class="nav-link" href="?pageChange=MJF_AccountRegistration.jsp">
 							<div class="sb-nav-link-icon">
