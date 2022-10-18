@@ -43,7 +43,7 @@
     <div class="input-form-backgroud row">
       <div class="input-form col-md-12 mx-auto">
         <h4 class="mb-3">품목 등록</h4>
-        <form action="Product_Process.jsp" class="validation-form" novalidate>
+        <form action="MJF_Product_Process.jsp" class="validation-form" novalidate>
           <div class="row">
             <div class="col-md-4 mb-3">
               <label for="productType">품목 분류</label>
@@ -133,9 +133,9 @@
             	<label for="productStorage">보관 창고</label>
            		<select class="custom-select d-block w-100" id="productStorage" name="productStorage">
                 <option>창고를 선택해주세요</option>
-                <option value="firstStorage">제1창고</option>
-                <option value="secondStorage">제2창고</option>
-                <option value="thirdStorage">제3창고</option>
+                <option value="제1창고">제1창고</option>
+                <option value="제2창고">제2창고</option>
+                <option value="제3창고">제3창고</option>
               </select>
           </div>
 

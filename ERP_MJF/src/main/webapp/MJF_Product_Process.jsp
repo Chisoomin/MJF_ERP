@@ -33,7 +33,7 @@ String smallProduct = "";
 
 String productCode = String.valueOf(request.getParameter("productCode"));
 code = productCode.substring(0, 2);
-smallProduct = productCode.substring(3, 5);
+smallProduct = productCode.substring(3);
 System.out.print("품목코드는 " + code);
 System.out.print("품목 소분류는 " + smallProduct);
 
@@ -53,6 +53,11 @@ String storage = request.getParameter("productStorage");
 
 
 try {
+	
+	conn = DriverManager.getConnection(url, user, password);
+	String sql = "insert into product_table (product_type, product_type2, product_name, product_color, product_code, product_measure, product_size, product_amount, product_price, product_storage) values (?,?,?,?,?,?,?,?,?,?)"; // NULL : AUTO_INCREMENT로 자동 번호 생성!
+	pstmt = conn.prepareStatement(sql);
+	
 	
 	if(typeCode.equals("완제품"))
 		type = "F-";
@@ -87,16 +92,16 @@ try {
 		else
 		System.out.print("색깔 분류 오류");
 	
-	pstmt.setString(1, type); // 품목 분류 : 완제품, 반제품, 원재료
+	pstmt.setString(1, typeCode); // 품목 분류 : 완제품, 반제품, 원재료
 	pstmt.setString(2, smallProduct); // 품목 소분류 
 	pstmt.setString(3, name); // 상품명
 	pstmt.setString(4, color); // 색깔
-	pstmt.setString(5, type + typeColor + "-"); // 상품 코드 숫자 제외
-	pstmt.setString(7, measure); // 단위
-	pstmt.setString(8, size1 + "x" + size2 + "x" + size3); // 사이즈
-	pstmt.setString(9, amount); // 수량
-	pstmt.setString(10, price); // 단가
-	pstmt.setString(11, storage); // 창고
+	pstmt.setString(5, type + typeColor + code + "-"); // 상품 코드 숫자 제외
+	pstmt.setString(6, measure); // 단위
+	pstmt.setString(7, size1 + "x" + size2 + "x" + size3); // 사이즈
+	pstmt.setString(8, amount); // 수량
+	pstmt.setString(9, price); // 단가
+	pstmt.setString(10, storage); // 창고
 	
 	
 	pstmt.executeUpdate();
@@ -121,6 +126,6 @@ try {
 <title>제품 등록 중...</title>
 </head>
 <body>
-<!-- <script>alert(name);</script>
- --></body>
+<script>alert("등록이 완료 되었습니다!");</script>
+</body>
 </html>
