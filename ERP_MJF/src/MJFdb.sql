@@ -21,17 +21,31 @@ CREATE TABLE MJFdb.masterdata_team (
  num        INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
  team_data    VARCHAR(10)
 );
+CREATE TABLE MJFdb.masterdata_company (
+ account_code_mjf VARCHAR(20),
+ account_name_mjf VARCHAR(20),
+ account_ceo_mjf VARCHAR(20),
+ account_address_mjf VARCHAR(20),
+ account_type_mjf VARCHAR(20),
+ account_item_mjf VARCHAR(20)
+);
 use MJFdb;
 drop table MJFdb.member_table;
+drop table MJFdb.member_webidpw;
 drop table MJFdb.sales;
 drop table MJFdb.masterdata_team;
-
+drop table MJFdb.masterdata_company;
+-----------------drop--------------------------------------------
 select * from MJFdb.member_table;
+select * from MJFdb.masterdata_company;
 
 insert into MJFdb.masterdata_team(team_data) values('영업 4팀');
+insert into MJFdb.masterdata_company(account_code_mjf,account_name_mjf,account_ceo_mjf,account_address_mjf,account_type_mjf,account_item_mjf)
+values('110-87-77775','명지 가구','동인윤','서울특별시 서대문구 가좌로 134','도소매','가구, 원자재');
 
 select * from MJFdb.account_table;
 select * from MJFdb.order_table;
+select * from MJFdb.product_table;
 select * from MJFdb.masterdata_team;
 
 select * from MJFdb.member_webidpw;

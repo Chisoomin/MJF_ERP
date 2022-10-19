@@ -7,6 +7,8 @@
 	Connection conn = null;
 	Statement stmt = null;
 	ResultSet rs = null;
+	//String name = request.getParameter("radiocheck");
+	//out.println("<script>alert('"+name+"');</script>");
 
 	String url = "jdbc:mysql://mjfdb-aws.cxswvbzpdoox.ap-northeast-1.rds.amazonaws.com/MJFdb";
 	String user = "MJFdbRoot";
@@ -16,9 +18,9 @@
 	conn = DriverManager.getConnection(url,user,password);
 	
 	try{
-//		String sql = "SELECT word, ppl from tablename where id='"+id+"'";
+		String sql = "SELECT team_data from MJFdb.masterdata_team";
 		stmt = conn.createStatement();
-		out.println("<script>alert('db 연결 성공');</script>");
+		rs = stmt.executeQuery(sql);
 		
 	
 		
@@ -98,6 +100,11 @@ body {
 	background-color: #7D766D;
 	border-color: #7D766D;
 }
+.btn-set2 {
+	color: #fff;
+	background-color: #393229;
+	border-color: #393229;
+}
 
 .white {
 	color: #fff;
@@ -106,6 +113,10 @@ body {
 	text-align : center;
 	vertical-align : middle;
 }
+.mar{
+	margin-bottom:20px;
+}
+
 </style>
 </head>
 <body>
@@ -121,115 +132,87 @@ body {
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
+				<script type="text/javascript">
+					var popupX = (document.body.offsetWidth / 2) - (document.body.offsetWidth / 4);
+					// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+					
+					var popupY= (window.screen.height / 2) - (window.screen.height / 4);
+					// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+				</script>
+				
+				<button class="btn btn-set2 btn-lg btn-block mar" onclick="window.open('order_loading.jsp', 'window_name', 'width=window.screen.width /2, height=window.screen.height /2, left='+ popupX + ', top='+ popupY+', status=no, scrollbars=yes');">수주 불러오기</button>
 				
 				<form class="validation-form" novalidate>
 					<div class="row">
 						<div class="col-md-4 mb-3">
-							<label for="name">일자</label> <input type="text"
-								class="form-control" id="name" placeholder="" value="" required>
-							<div class="invalid-feedback">이름을 입력해주세요.</div>
+							<label for="name">수주번호</label> <input type="text"
+								class="form-control" name="ordernum" id="ordernum" placeholder="" value="" required readonly>
 						</div>
 						<div class="col-md-4 mb-3">
-							<label for="nickname">별명</label> <input type="text"
-								class="form-control" id="nickname" placeholder="" value=""
-								required>
-							<div class="invalid-feedback">별명을 입력해주세요.</div>
+							<label for="nickname">수주날짜</label> <input type="text"
+								class="form-control" name="orderda" id="orderda" placeholder="" value=""
+								required readonly>
 						</div>
 						<div class="col-md-4 mb-3">
-							<label for="nickname">별명</label> <input type="text"
-								class="form-control" id="nicknam" placeholder="" value=""
+							<label for="nickname">매출날짜</label> <input type="date"
+								class="form-control" name="salesdate" id="salesdate" placeholder="" value=""
 								required>
-							<div class="invalid-feedback">별명을 입력해주세요.</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-4 mb-3">
-							<label for="name">이름</label> <input type="text"
-								class="form-control" id="name" placeholder="" value="" required>
-							<div class="invalid-feedback">이름을 입력해주세요.</div>
+							<label for="name">거래처명</label> <input type="text"
+								class="form-control" name="orderacc" id="orderacc" placeholder="" value="" required readonly>
 						</div>
 						<div class="col-md-4 mb-3">
-							<label for="nickname">별명</label> <input type="text"
-								class="form-control" id="nickname" placeholder="" value=""
-								required>
-							<div class="invalid-feedback">별명을 입력해주세요.</div>
-						</div>
-						<div class="col-md-4 mb-3">
-							<label for="nickname">별명</label> <input type="text"
-								class="form-control" id="nicknam" placeholder="" value=""
-								required>
-							<div class="invalid-feedback">별명을 입력해주세요.</div>
+							<label for="nickname">사업자등록번호</label> <input type="text"
+								class="form-control" name="orderaccnum" id="orderaccnum" placeholder="" value=""
+								required readonly>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-4 mb-3">
-							<label for="name">이름</label> <input type="text"
-								class="form-control" id="name" placeholder="" value="" required>
-							<div class="invalid-feedback">이름을 입력해주세요.</div>
+							<label for="name">품목코드</label> <input type="text"
+								class="form-control" name="procode" id="procode" placeholder="" value="" required readonly>
 						</div>
 						<div class="col-md-4 mb-3">
-							<label for="nickname">별명</label> <input type="text"
-								class="form-control" id="nickname" placeholder="" value=""
-								required>
-							<div class="invalid-feedback">별명을 입력해주세요.</div>
+							<label for="nickname">품목명</label> <input type="text"
+								class="form-control" name="proname" id="proname" placeholder="" value=""
+								required readonly>
 						</div>
-						<div class="col-md-4 mb-3">
-							<label for="nickname">별명</label> <input type="text"
-								class="form-control" id="nicknam" placeholder="" value=""
-								required>
-							<div class="invalid-feedback">별명을 입력해주세요.</div>
-						</div>
+					
 					</div>
-
-					<div class="mb-3">
-						<label for="email">이메일</label> <input type="email"
-							class="form-control" id="email" placeholder="you@example.com"
-							required>
-						<div class="invalid-feedback">이메일을 입력해주세요.</div>
-					</div>
-
-					<div class="mb-3">
-						<label for="address">주소</label> <input type="text"
-							class="form-control" id="address" placeholder="서울특별시 강남구"
-							required>
-						<div class="invalid-feedback">주소를 입력해주세요.</div>
-					</div>
-
-					<div class="mb-3">
-						<label for="address2">상세주소<span class="text-muted">&nbsp;(필수
-								아님)</span></label> <input type="text" class="form-control" id="address2"
-							placeholder="상세주소를 입력해주세요.">
-					</div>
-
 					<div class="row">
-						<div class="col-md-8 mb-3">
-							<label for="root">가입 경로</label> <select
-								class="custom-select d-block w-100" id="root">
-								<option value=""></option>
-								<option>검색</option>
-								<option>카페</option>
-							</select>
-							<div class="invalid-feedback">가입 경로를 선택해주세요.</div>
+						<div class="col-md-3 mb-3">
+							<label for="name">단위</label> <input type="text"
+								class="form-control" name="orderme" id="orderme" placeholder="" value="" required readonly>
 						</div>
-						<div class="col-md-4 mb-3">
-							<label for="code">추천인 코드</label> <input type="text"
-								class="form-control" id="code" placeholder="" required>
-							<div class="invalid-feedback">추천인 코드를 입력해주세요.</div>
+						<div class="col-md-3 mb-3">
+							<label for="nickname">수량</label> <input type="text"
+								class="form-control" name="orderqu" id="orderqu" placeholder="" value=""
+								required readonly>
 						</div>
+						<div class="col-md-3 mb-3">
+							<label for="name">단가</label> <input type="number"
+								class="form-control" name="orderpp" id="orderpp" placeholder="" value="" onchange="changefunc()" required>
+						</div>
+						<div class="col-md-3 mb-3">
+							<label for="nickname">수주금액</label> <input type="text"
+								class="form-control" name="ordersp" id="ordersp" placeholder="" value=""
+								required readonly>
+						</div>
+					
 					</div>
-					<hr class="mb-4">
-					<div class="custom-control custom-checkbox">
-						<input type="checkbox" class="custom-control-input" id="aggrement"
-							required> <label class="custom-control-label"
-							for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
-					</div>
+
+
+					
 					<div class="mb-4"></div>
-					<button class="btn btn-set btn-lg btn-block" type="submit">가입
-						완료</button>
+					<button class="btn btn-set btn-lg btn-block" type="submit">매출 등록</button>
 				</form>
 			</div>
 		</div>
 	</div>
+	
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-table col-md-12 mx-auto">
@@ -314,7 +297,7 @@ body {
 			</div>
 		</div>
 	</div>
-	<script
+	<!-- <script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
 	<script src="./js/scripts.js"></script>
@@ -325,7 +308,12 @@ body {
 	<script src="./assets/demo/chart-bar-demo.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
 		crossorigin="anonymous"></script>
-	<script src="./js/datatables-simple-demo.js"></script>
+	<script src="./js/datatables-simple-demo.js"></script> -->
+	<script>
+		function changefunc(){ 
+			document.getElementById('ordersp').value = document.getElementById('orderpp').value*document.getElementById('orderqu').value;               
+	    }
+	</script>
 	<script>
 		window.addEventListener('load', () => {
       	const forms = document.getElementsByClassName('validation-form');

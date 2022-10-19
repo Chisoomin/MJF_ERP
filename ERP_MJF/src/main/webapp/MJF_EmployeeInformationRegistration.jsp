@@ -154,7 +154,7 @@ body {
 									
 									for(x=0;x<team_rs.length;x++){
 										if(team_rs[x]==null)continue;
-										out.println("<option value=" + team_rs[x]+">"+team_rs[x]+"</option>");
+										out.println("<option value='"+team_rs[x]+"'>"+team_rs[x]+"</option>");
 									}
 								%>
 								<!-- <option value="영업 1팀">영업 1팀</option>
