@@ -24,9 +24,10 @@
 <body class="sb-nav-fixed">
 	<%
 		String select = request.getParameter("pageChange");
-	if (select == null) {
-		select = "Layout_Footer.jsp";
-	}
+	
+		if (select == null) {
+			select = "Layout_Footer.jsp";
+		}
 	%>
 
 

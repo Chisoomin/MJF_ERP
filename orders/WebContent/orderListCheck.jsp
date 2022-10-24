@@ -11,7 +11,8 @@ String password = "mjfrootpw";
 
 Connection conn = DriverManager.getConnection(url, user, password);
 
-String sql = "select * from order_table;";
+// String sql = "select * from order_table;";
+String sql = "SELECT *, COUNT(order_num) FROM order_table GROUP BY order_num HAVING COUNT(order_num) > 0;";
 
 PreparedStatement pstmt = conn.prepareStatement(sql);
 ResultSet rs = pstmt.executeQuery(sql);
@@ -108,10 +109,6 @@ body {
 .tableHead {
 	text-align: center;
 }
-
-.marginZero {
-
-}
 </style>
 
 <script>
@@ -127,7 +124,7 @@ body {
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-title col-md-12 mx-auto">
-				<h3>수주목록</h3>
+				<h3>수주조회</h3>
 			</div>
 		</div>
 	</div>
@@ -149,10 +146,10 @@ body {
 												<th colspan='3'>수주정보</th>
 												<th colspan='2'>담당자정보</th>
 												<th colspan='2'>거래처정보</th>
-												<th colspan='6'>품목정보</th>
+												<th colspan='2'>품목정보</th>
 												<th colspan='3'>금액정보</th>
 												<th rowspan='2'>진행상황</th>
-												<th rowspan='2'>비고</th>
+												<!-- 												<th rowspan='2'>비고</th> -->
 											</tr>
 											<tr>
 												<th>수주<br>번호
@@ -161,21 +158,23 @@ body {
 												</th>
 												<th>납기<br>일자
 												</th>
-												<th>담당자<br>코드</th>
-												<th>담당자<br>이름</th>
+												<th>담당자<br>사원번호
+												</th>
+												<th>담당자<br>이름
+												</th>
 												<th>거래처<br>코드
 												</th>
 												<th>거래처<br>이름
 												</th>
-												<th>품목<br>코드
-												</th>
-												<th>품목이름</th>
-												<th>품목<br>색상
-												</th>
-												<th>품목<br>단위
-												</th>
-												<th>품목<br>수량
-												</th>
+												<!-- 												<th>품목<br>코드 -->
+												<!-- 												</th> -->
+												<th>품목</th>
+												<!-- 												<th>품목<br>색상 -->
+												<!-- 												</th> -->
+												<!-- 												<th>품목<br>단위 -->
+												<!-- 												</th> -->
+												<!-- 												<th>품목<br>수량 -->
+												<!-- 												</th> -->
 												<th>품목<br>단가
 												</th>
 												<th>공급가액</th>
@@ -195,17 +194,23 @@ body {
 												<td id="memberName"><%=rs.getString("member_name")%></td>
 												<td id="accountCode"><%=rs.getString("account_code")%></td>
 												<td id="accountName"><%=rs.getString("account_name")%></td>
-												<td id="productCode"><%=rs.getString("product_code")%></td>
-												<td id="productName"><%=rs.getString("product_name")%></td>
-												<td id="productColor"><%=rs.getString("product_color")%></td>
-												<td id="productMeasure"><%=rs.getString("product_measure")%></td>
-												<td id="productQuan"><%=rs.getString("product_quantity")%></td>
+												<%-- 												<td id="productCode"><%=rs.getString("product_code")%></td> --%>
+												<td id="productName">
+													<%
+														if (rs.getInt("COUNT(order_num)") > 1) {
+													%> <%=rs.getString("product_name")%> 외 <%=rs.getInt("COUNT(order_num)")%>개
+													<%
+														} else if (rs.getInt("COUNT(order_num)") == 1) {
+													%> <%=rs.getString("product_name")%> <% }%></td>
+												<%-- 												<td id="productColor"><%=rs.getString("product_color")%></td> --%>
+												<%-- 												<td id="productMeasure"><%=rs.getString("product_measure")%></td> --%>
+												<%-- 												<td id="productQuan"><%=rs.getString("product_quantity")%></td> --%>
 												<td id="productPrice"><%=rs.getString("product_price")%></td>
 												<td id="supplyPrice"><%=rs.getString("supply_price")%></td>
 												<td id="vat"><%=rs.getString("vat")%></td>
 												<td id="totalAmount"><%=rs.getString("total_amount")%></td>
 												<td id="orderProgress"><%=rs.getString("order_progress")%></td>
-												<td id="orderNote"><%=rs.getString("order_note")%></td>
+<%-- 												<td id="orderNote"><%=rs.getString("order_note")%></td> --%>
 											</tr>
 											<%
 												}
