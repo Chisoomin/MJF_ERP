@@ -5,16 +5,16 @@
 <%
 	Class.forName("com.mysql.jdbc.Driver");
 
-	String url = "jdbc:mysql://mjfdb-aws.cxswvbzpdoox.ap-northeast-1.rds.amazonaws.com/MJFdb";
-	String user = "MJFdbRoot";
-	String password = "mjfrootpw";
+String url = "jdbc:mysql://mjfdb-aws.cxswvbzpdoox.ap-northeast-1.rds.amazonaws.com/MJFdb";
+String user = "MJFdbRoot";
+String password = "mjfrootpw";
 
-	Connection conn = DriverManager.getConnection(url, user, password);
+Connection conn = DriverManager.getConnection(url, user, password);
 
-	String sql = "select * from member_table;";
+String sql = "select * from member_table;";
 
-	PreparedStatement pstmt = conn.prepareStatement(sql);
-	ResultSet rs = pstmt.executeQuery(sql);
+PreparedStatement pstmt = conn.prepareStatement(sql);
+ResultSet rs = pstmt.executeQuery(sql);
 %>
 
 <!DOCTYPE html>
@@ -23,6 +23,14 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="./css/styles2.css" />
 <link rel="stylesheet" href="./css/styles.css" />
+
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
+	crossorigin="anonymous"></script>
+<script src="js/datatables-simple-demo.js"></script>
 
 <style>
 body {
@@ -115,50 +123,52 @@ body {
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
 
-					<div id="layoutSidenav_content">
-						<main>
-							<div class="container-fluid px-4">
-								<div class="card mb-4">
-									<div class="card-header">
-										<i class="fas fa-table me-1"></i> 담당자찾기
-									</div>
-									<div class="card-body">
-										<table id="datatablesSimple">
-											<thead>
-												<tr>
-													<th>사원번호</th>
-													<th>담당자이름</th>
-													<th>부서(팀)</th>
-													<th>직급</th>
-													<th>입사일</th>
-												</tr>
-											</thead>
-											<tbody>
-												<%
-													while (rs.next()) {
-												%>
-												<tr>
-													<td><%=rs.getString("member_id")%></td>
-													<td id="memberName"><a href="javascript:sendEmployeeValue('<%=rs.getString("member_id")%>', '<%=rs.getString("member_name")%>')"><%=rs.getString("member_name")%></a></td>
-													<td><%=rs.getString("team")%></td>
-													<td><%=rs.getString("memposition")%></td>
-													<td><%=rs.getString("entrydate")%></td>
-												</tr>
-												<%
-													}
-												%>
-											</tbody>
-										</table>
-									</div>
+				<div id="layoutSidenav_content">
+					<main>
+						<div class="container-fluid px-4">
+							<div class="card mb-4">
+								<div class="card-header">
+									<i class="fas fa-table me-1"></i> 담당자찾기
+								</div>
+								<div class="card-body">
+									<table id="datatablesSimple">
+										<thead>
+											<tr>
+												<th>사원번호</th>
+												<th>담당자이름</th>
+												<th>부서(팀)</th>
+												<th>직급</th>
+												<th>입사일</th>
+											</tr>
+										</thead>
+										<tbody>
+											<%
+												while (rs.next()) {
+											%>
+											<tr>
+												<td><%=rs.getString("member_id")%></td>
+												<td id="memberName"><a
+													href="javascript:sendEmployeeValue('<%=rs.getString("member_id")%>', '<%=rs.getString("member_name")%>')"><%=rs.getString("member_name")%></a></td>
+												<td><%=rs.getString("team")%></td>
+												<td><%=rs.getString("memposition")%></td>
+												<td><%=rs.getString("entrydate")%></td>
+											</tr>
+											<%
+												}
+											%>
+										</tbody>
+									</table>
 								</div>
 							</div>
-						</main>
-					</div>
+						</div>
+					</main>
+				</div>
 
-					<div class="mb-4"></div>
+				<div class="mb-4"></div>
 			</div>
 		</div>
 	</div>
+	
 	<script>
 		window.addEventListener('load', () => {
       	const forms = document.getElementsByClassName('validation-form');
@@ -173,12 +183,6 @@ body {
       	});
     	}, false);
   	</script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		crossorigin="anonymous"></script>
-	<script src="js/scripts.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
-		crossorigin="anonymous"></script>
-	<script src="js/datatables-simple-demo.js"></script>
+
 </body>
 </html>

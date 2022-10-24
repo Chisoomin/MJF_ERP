@@ -24,6 +24,14 @@ ResultSet rs = pstmt.executeQuery(sql);
 <link rel="stylesheet" href="./css/styles2.css" />
 <link rel="stylesheet" href="./css/styles.css" />
 
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
+	crossorigin="anonymous"></script>
+<script src="js/datatables-simple-demo.js"></script>
+
 <style>
 body {
 	min-height: 100vh;
@@ -97,11 +105,45 @@ body {
 	vertical-align: middle;
 }
 </style>
+
 <script>
-	function sendProductValue(productName, productColor, productMeasure, productPrice) {
-		opener.setProductValue(productName, productColor, productMeasure, productPrice);
+	function sendProductValue(productCode, productName, productColor, productMeasure, productPrice) {
+		opener.setProductValue(productCode, productName, productColor, productMeasure, productPrice);
 		window.close();
 	}
+</script>
+
+<script>
+	$(document).ready(function() {
+		$("#registBtn").click(function(){
+			var rowData = new Array();
+			var tdArr = new Array();
+	
+			var checkbox = $("input[name=product_row]:checked");
+	
+			checkbox.each(function(i) {
+				var tr = checkobx.parent().parent().eq(i);
+				var td = tr.children();
+		
+				rowData.push(tr.text());
+		
+				var productCode = td.eq(1).text()+", ";
+				var productName = td.eq(2).text()+", ";
+				var productColor = td.eq(3).text()+", ";
+				var productMeasure = td.eq(4).text()+", ";
+				var productPrice = td.eq(5).text();
+		
+				tdArr.push(productCode);
+				tdArr.push(productName);
+				tdArr.push(productColor);
+				tdArr.push(productMeasure);
+				tdArr.push(productPrice);
+			}
+		});
+
+		alert(tdArr);
+	});
+
 </script>
 </head>
 <body>
@@ -116,52 +158,60 @@ body {
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
+				<!-- 				<form action="" method="post" class="validation-form" -->
+				<!-- 					name="orderResgistraion" novalidate> -->
 
-					<div id="layoutSidenav_content">
-						<main>
-							<div class="container-fluid px-4">
-								<div class="card mb-4">
-									<div class="card-header">
-										<i class="fas fa-table me-1"></i> 품목찾기
-									</div>
-									<div class="card-body">
-										<table id="datatablesSimple" class="productTable">
-											<thead>
-												<tr>
-													<th>품목코드</th>
-													<th>품목이름</th>
-													<th>색상</th>
-													<th>단위</th>
-													<th>단가</th>
-												</tr>
-											</thead>
-											<tbody>
-												<%
-													while (rs.next()) {
-												%>
-												<tr>
-													<td id="productCode"><%=rs.getString("product_code") + rs.getString("product_num")%></td>
-													<td id="productName"><a
-														href="javascript:sendProductValue('<%=rs.getString("product_name")%>', '<%=rs.getString("product_color")%>', '<%=rs.getString("product_measure")%>', '<%=rs.getString("product_price")%>')"><%=rs.getString("product_name")%></a></td>
-													<td id="productColor"><%=rs.getString("product_color")%></td>
-													<td id="productMeasure"><%=rs.getString("product_measure")%></td>
-													<td id="productPrice"><%=rs.getString("product_price")%></td>
-												</tr>
-												<%
-													}
-												%>
-											</tbody>
-										</table>
-									</div>
+				<div id="layoutSidenav_content">
+					<main>
+						<div class="container-fluid px-4">
+							<div class="card mb-4">
+								<div class="card-header">
+									<i class="fas fa-table me-1"></i> 품목찾기
+								</div>
+								<div class="card-body">
+									<table id="datatablesSimple" class="productTable">
+										<thead>
+											<tr>
+												<th>선택</th>
+												<th>품목코드</th>
+												<th>품목이름</th>
+												<th>색상</th>
+												<th>단위</th>
+												<th>단가</th>
+											</tr>
+										</thead>
+										<tbody>
+											<%
+												while (rs.next()) {
+											%>
+											<tr>
+												<td id="productCheck"><input type="checkbox"
+													name="product_row"></td>
+												<td id="productCode"><%=rs.getString("product_code") + String.format("%03d", rs.getInt("product_num"))%></td>
+												<td id="productName"><a
+													href="javascript:sendProductValue('<%=rs.getString("product_code") + String.format("%03d", rs.getInt("product_num"))%>', '<%=rs.getString("product_name")%>', '<%=rs.getString("product_color")%>', '<%=rs.getString("product_measure")%>', '<%=rs.getString("product_price")%>')"><%=rs.getString("product_name")%></a></td>
+												<td id="productColor"><%=rs.getString("product_color")%></td>
+												<td id="productMeasure"><%=rs.getString("product_measure")%></td>
+												<td id="productPrice"><%=rs.getString("product_price")%></td>
+											</tr>
+											<%
+												}
+											%>
+										</tbody>
+									</table>
 								</div>
 							</div>
-						</main>
-					</div>
-
-					<div class="mb-4"></div>
+						</div>
+						 
+						<div class="col-lg-12" id="ex3_Result1"></div>
+						<button class="btn btn-set btn-lg btn-block" id="registBtn">등록</button>
+					</main>
+				</div>
+				<!-- 				</form> -->
 			</div>
 		</div>
 	</div>
+	
 	<script>
 		window.addEventListener('load', () => {
       	const forms = document.getElementsByClassName('validation-form');
@@ -175,13 +225,7 @@ body {
         	}, false);
       	});
     	}, false);
-  	</script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		crossorigin="anonymous"></script>
-	<script src="js/scripts.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
-		crossorigin="anonymous"></script>
-	<script src="js/datatables-simple-demo.js"></script>
+	</script>
+
 </body>
 </html>

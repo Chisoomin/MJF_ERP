@@ -5,16 +5,16 @@
 <%
 	Class.forName("com.mysql.jdbc.Driver");
 
-	String url = "jdbc:mysql://mjfdb-aws.cxswvbzpdoox.ap-northeast-1.rds.amazonaws.com/MJFdb";
-	String user = "MJFdbRoot";
-	String password = "mjfrootpw";
+String url = "jdbc:mysql://mjfdb-aws.cxswvbzpdoox.ap-northeast-1.rds.amazonaws.com/MJFdb";
+String user = "MJFdbRoot";
+String password = "mjfrootpw";
 
-	Connection conn = DriverManager.getConnection(url, user, password);
+Connection conn = DriverManager.getConnection(url, user, password);
 
-	String sql = "select * from account_table;";
+String sql = "select * from account_table;";
 
-	PreparedStatement pstmt = conn.prepareStatement(sql);
-	ResultSet rs = pstmt.executeQuery(sql);
+PreparedStatement pstmt = conn.prepareStatement(sql);
+ResultSet rs = pstmt.executeQuery(sql);
 %>
 
 <!DOCTYPE html>
@@ -23,6 +23,14 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="./css/styles2.css" />
 <link rel="stylesheet" href="./css/styles.css" />
+
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
+	crossorigin="anonymous"></script>
+<script src="js/datatables-simple-demo.js"></script>
 
 <style>
 body {
@@ -93,12 +101,14 @@ body {
 	vertical-align: middle;
 }
 </style>
+
 <script>
 	function sendAccountValue(accountCode, accountName) {
 		opener.setAccountValue(accountCode, accountName);
 		window.close();
 	}
 </script>
+
 </head>
 <body>
 
@@ -112,8 +122,7 @@ body {
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
-				<form method="post" class="validation-form"
-					novalidate>
+				<form method="post" class="validation-form" novalidate>
 
 					<div id="layoutSidenav_content">
 						<main>
@@ -138,7 +147,8 @@ body {
 												%>
 												<tr>
 													<td id="accountCode"><%=rs.getString("account_code")%></td>
-													<td id="accountName"><a href="javascript:sendAccountValue('<%=rs.getString("account_code")%>', '<%=rs.getString("account_name")%>')"><%=rs.getString("account_name")%></a></td>
+													<td id="accountName"><a
+														href="javascript:sendAccountValue('<%=rs.getString("account_code")%>', '<%=rs.getString("account_name")%>')"><%=rs.getString("account_name")%></a></td>
 													<td><%=rs.getString("account_address")%></td>
 													<td><%=rs.getString("account_tel")%></td>
 												</tr>
@@ -159,6 +169,7 @@ body {
 			</div>
 		</div>
 	</div>
+
 	<script>
 		window.addEventListener('load', () => {
       	const forms = document.getElementsByClassName('validation-form');
@@ -173,12 +184,6 @@ body {
       	});
     	}, false);
   	</script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		crossorigin="anonymous"></script>
-	<script src="js/scripts.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
-		crossorigin="anonymous"></script>
-	<script src="js/datatables-simple-demo.js"></script>
+
 </body>
 </html>
