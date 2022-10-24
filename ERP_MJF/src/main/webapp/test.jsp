@@ -13,7 +13,7 @@
 	conn = DriverManager.getConnection(url,user,password);
 	
 	try{
-		out.println("db 연결 성공!");
+		out.println("db 연결 성공");
 
 	}catch(Exception e){
 		e.printStackTrace();
