@@ -28,4 +28,6 @@ FROM (
 	SELECT MAX(CAST(order_num AS SIGNED))+1 AS SEQ FROM order_table
 	) AA
 	WHERE AA.SEQ LIKE CONCAT(@TODAYS, '%');
+	
+SELECT * FROM order_table;
 
