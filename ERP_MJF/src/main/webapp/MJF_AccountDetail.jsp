@@ -79,23 +79,22 @@ body {
 </style>
 </head>
 <body>
-	
+
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-title md-auto mx-auto">
-				<h1>거래처등록</h1>
+				<h1>거래처정보</h1>
 			</div>
 		</div>
 	</div>
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-form md-auto mx-auto">
-				<form action="MJF_AccountReigstration_process.jsp" method="post" class="validation-form" novalidate>
-				
+				<form action="MJF_AccountDetail_process.jsp" method="post" class="validation-form" novalidate>		
 					<div class="row">
 						<div class="col-md-7 mb-3">
 							<label>사업자등록번호</label> 
-							<input type="text" class="form-control" name="code" maxlength="12" placeholder="000-00-00000" required>
+							<input type="text" class="form-control" name="code" id="code" maxlength="12" placeholder="000-00-00000" value="" required>
 							<div class="invalid-feedback">사업자등록번호를 입력해주세요.</div>
 						</div>
 						<div class="col-md-4 mb-3">
@@ -112,12 +111,12 @@ body {
 					<div class="row">
 						<div class="col-md-7 mb-3">
 							<label>거래처명</label> 
-							<input type="text" class="form-control" name="name" required>
+							<input type="text" class="form-control" name="name" value="" required>
 							<div class="invalid-feedback">거래처명을 입력해주세요.</div>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label>거래시작일</label> 
-							<input type="date" class="form-control" id="begin_date" name="begin_date">
+							<input type="date" class="form-control" id="begin_date" name="begin_date" value="">
 							<div class="invalid-feedback">거래시작일을 입력해주세요.</div>
 						</div>
 					</div>
@@ -125,7 +124,7 @@ body {
 						<div class="row">
 						<div class="col-md-7 mb-3">
 							<label>대표자</label> 
-							<input type="text" class="form-control" name="ceo">
+							<input type="text" class="form-control" name="ceo" value="">
 							<div class="invalid-feedback">대표자를 입력해주세요.</div>
 						</div>
 						<div class="col-md-4 mb-3">
@@ -151,7 +150,7 @@ body {
 						</div>
 						<div class="col-md-7 mb-3">
 							<label>종목</label> 
-							<input type="text" class="form-control" name="items_of_business" required>
+							<input type="text" class="form-control" name="items_of_business" value="" required>
 							<div class="invalid-feedback">종목을 입력해주세요.</div>
 						</div>
 					</div>
@@ -160,12 +159,12 @@ body {
 					<div class="row">
 						<div class="col-md-5 mb-3">
 							<label>연락처</label> 
-							<input type="tel" class="form-control" name="tel" placeholder="000-0000-0000" required>
+							<input type="tel" class="form-control" name="tel" placeholder="000-0000-0000" value="" required>
 							<div class="invalid-feedback">연락처를 입력해주세요.</div>
 						</div>
 						<div class="col-md-5 mb-3">
 							<label>FAX</label> 
-							<input type="tel" class="form-control" name="fax" >
+							<input type="tel" class="form-control" name="fax" value="" >
 							<div class="invalid-feedback">FAX를 입력해주세요.</div>
 						</div>
 					</div>
@@ -173,18 +172,18 @@ body {
 					<div class="row">
 						<div class="col-md-4 mb-3">
 							<label>주소</label> 
-							<input type="text" class="form-control" name="postcode" id="postcode" placeholder="우편번호" required readonly>
+							<input type="text" class="form-control" name="postcode" id="postcode" placeholder="우편번호" value="" required readonly>
 						</div>
 						<div class="col-md-auto">
 						<label class="white">우편번호</label> 
 							<input type="button" class="form-control" onclick="sample6_execDaumPostcode()" name="checkaddr" id="checkaddr" value="우편번호찾기" required>
 						</div>
 						<div class="col-md-11 mb-3">
-							<input type="text" class="form-control" name="addr1" id="addr1" placeholder="주소" required>
+							<input type="text" class="form-control" name="addr1" id="addr1" placeholder="주소" value="" required>
 							<div class="invalid-feedback">주소를 입력해주세요.</div>
 						</div>
 						<div class="col-md-11 mb-3">
-							<input type="text" class="form-control" name="addr2" id="addr2" placeholder="상세주소" required>
+							<input type="text" class="form-control" name="addr2" id="addr2" placeholder="상세주소" value="" required>
 							<div class="invalid-feedback">상세주소를 입력해주세요.</div>
 						</div>
 					</div>
@@ -192,21 +191,21 @@ body {
 					<div class="row">
 						<div class="col-md-11 mb-3">
 							<label>이메일</label> 
-							<input type="text" class="form-control" name="email" placeholder="id@domain.com">
+							<input type="text" class="form-control" name="email" placeholder="id@domain.com" value="">
 						</div>
 					</div>
 					
 					<div class="row">
 						<div class="col-md-11 mb-3">
 							<label>홈페이지</label> 
-							<input type="text" class="form-control" name="website" placeholder="http://website.com">
+							<input type="text" class="form-control" name="website" placeholder="http://website.com" value="">
 						</div>
 					</div>
 					
 					<div class="row">
 						<div class="col-md-11 mb-3">
 							<label>비고</label> 
-							<input type="text" class="form-control" name="remark">
+							<input type="text" class="form-control" name="remark" value="">
 						</div>
 					</div>
 					
@@ -215,12 +214,12 @@ body {
 					<div class="row">
 						<div class="col-md-5 mb-3">
 							<label>담당자</label> 
-							<input type="text" class="form-control" name="sales_name" required>
+							<input type="text" class="form-control" name="sales_name" value="" required>
 							<div class="invalid-feedback">담당자를 입력해주세요.</div>
 						</div>
 						<div class="col-md-5 mb-3">
 							<label>담당자 연락처</label> 
-							<input type="tel" class="form-control" name="sales_tel" placeholder="000-0000-0000" required>
+							<input type="tel" class="form-control" name="sales_tel" placeholder="000-0000-0000" value="" required>
 							<div class="invalid-feedback">담당자 연락처를 입력해주세요.</div>
 						</div>
 					</div>
@@ -228,7 +227,7 @@ body {
 					<div class="row">
 						<div class="col-md-11 mb-3">
 							<label>담당자 이메일</label> 
-							<input type="text" class="form-control" name="sales_email">
+							<input type="text" class="form-control" name="sales_email" value="">
 						</div>
 					</div>
 					
@@ -237,88 +236,37 @@ body {
 					<div class="row">
 						<div class="col-md-5 mb-3">
 							<label>은행명</label> 
-							<input type="text" class="form-control" name="bank_name">
+							<input type="text" class="form-control" name="bank_name" value="">
 						</div>
 						<div class="col-md-5 mb-3">
 							<label>예금주명</label> 
-							<input type="tel" class="form-control" name="account_holder">
+							<input type="tel" class="form-control" name="account_holder" value="">
 						</div>
 					</div>
 					
 					<div class="row">
 						<div class="col-md-11 mb-3">
 							<label>계좌번호</label> 
-							<input type="text" class="form-control" name="account_number">
+							<input type="text" class="form-control" name="account_number" value="">
 						</div>
 					</div>
 						
 					<hr class="mb-4">
 					<div class="mb-4"></div>
-					<button class="btn btn-set btn-lg btn-block" type="submit">등록</button>
+					<button class="btn btn-set btn-lg btn-block" type="submit">수정</button>
 					<button class="btn btn-set btn-lg btn-block" type="submit">취소</button>
 				</form>
 			</div>
 		</div>
+		<script>
+		String code = request.getParameter("code");
+		window.onload = function changefunc(){ 
+			document.getElementById('code').value = code;
+			document.getElementById('type').value = 
+			document.getElementById('orderqu').value;               
+	    }
+		
+		
+		
+		</script>
 	</div>
-	<script>
-		window.addEventListener('load', () => {
-      	const forms = document.getElementsByClassName('validation-form');
-		Array.prototype.filter.call(forms, (form) => {
-			form.addEventListener('submit', function (event) {
-				if (form.checkValidity() === false) {
-					event.preventDefault();
-            		event.stopPropagation();
-          		}	
-          	form.classList.add('was-validated');
-        	}, false);
-      	});
-    	}, false);
-  </script>
-  <script type="text/javascript">
-	    window.onload = function() {
-			today = new Date();
-			today = today.toISOString().slice(0, 10);
-			bir = document.getElementById("begin_date");
-			bir.value = today;
-		}
-  </script>
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script>
-    function sample6_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                var addr = '';
-                var extraAddr = '';
-
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
-                }
-
-                if(data.userSelectedType === 'R'){
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    document.getElementById("addr2").value = extraAddr;
-                
-                } else {
-                    document.getElementById("addr2").value = '';
-                }
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('postcode').value = data.zonecode;
-                document.getElementById("addr1").value = addr;
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("addr2").focus();
-            }
-        }).open();
-    }
-  </script>
-</body>
-</html>
