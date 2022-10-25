@@ -232,9 +232,32 @@ body {
 
 								</div>
 
-								<button
-									onclick="window.open('ProductInTest.jsp', 'window_name', 'width=window.screen.width /2, height=window.screen.height /2, status=no, scrollbars=yes');">품목
-									등록</button>
+<script type="text/javascript">
+					var popupX = (document.body.offsetWidth / 2) - (document.body.offsetWidth / 4);
+					// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+					
+					var popupY= (window.screen.height / 2) - (window.screen.height / 4);
+					// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+					
+					function popup(url,width,height){
+  						var sst = window.open(url,'popwin','top='+((screen.availHeight - height)/2 - 40) +', left='+(screen.availWidth - width)/2+', width='+width+', height='+height+', toolbar=0, directories=0, status=0, menubar=0, scrollbars=0, resizable=0');
+					  if(sst){
+					    sst.focus();
+					  }
+					}
+				</script>
+
+								<!-- <button class="btn btn-set2 btn-lg btn-block mar"
+					onclick="window.open('order_loading.jsp', 'window_name', 'width=window.screen.width /2, height=window.screen.height /2, left=window.screen.width/4, status=no, scrollbars=yes');">수주
+					불러오기</button> -->
+								<button class="btn btn-set2 btn-lg btn-block mar btn-set"
+									onclick="popup('MJF_ProdcutRegistration.jsp',window.screen.width,window.screen.height)")">품목등록</button>
+					</main>
+
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 							</div>
