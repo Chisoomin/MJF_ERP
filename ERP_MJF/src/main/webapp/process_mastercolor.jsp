@@ -46,7 +46,7 @@ if (colorChange != "") {
 		out.println(i + " " + j);
 		if (colorChange.equals(color_rs[j])) {
 			out.println("<script>alert('" + "이미 존재하는 색입니다."
-					+ "'); location.href='MJF_Layout.jsp?pageChange=MasterdataRegister.jsp';</script>");
+					+ "'); location.href='MJF_Layout.jsp?pageChange=MJF_MasterdataRegister.jsp';</script>");
 			break;
 		}
 	}
@@ -57,7 +57,7 @@ if (colorChange != "") {
 
 		pstmt.executeUpdate();
 		out.println("<script>alert('" + "색깔 추가 완료되었습니다."
-				+ "'); location.href='MJF_Layout.jsp?pageChange=MasterdataRegister.jsp';</script>");
+				+ "'); location.href='MJF_Layout.jsp?pageChange=MJF_MasterdataRegister.jsp';</script>");
 	}
 		} else if (val_ind.equals("삭제")) {
 	for (j = 0; j < i; j++) {
@@ -67,13 +67,13 @@ if (colorChange != "") {
 
 			pstmt.executeUpdate();
 			out.println("<script>alert('" + "색깔 삭제 완료되었습니다."
-					+ "'); location.href='MJF_Layout.jsp?pageChange=MasterdataRegister.jsp';</script>");
+					+ "'); location.href='MJF_Layout.jsp?pageChange=MJF_MasterdataRegister.jsp';</script>");
 			break;
 		}
 	}
 	if (j == i) {
 		out.println("<script>alert('" + "존재하지 않는 색깔입니다."
-				+ "'); location.href='MJF_Layout.jsp?pageChange=MasterdataRegister.jsp';</script>");
+				+ "'); location.href='MJF_Layout.jsp?pageChange=MJF_MasterdataRegister.jsp';</script>");
 	}
 		} else {
 	//response.sendRedirect("MJF_Layout.jsp?pageChange=MJF_MasterdataRegister.jsp");
@@ -112,7 +112,7 @@ if (colorChange != "") {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>품목 색깔 변경 중...</title>
 </head>
 <body>
 </body>
