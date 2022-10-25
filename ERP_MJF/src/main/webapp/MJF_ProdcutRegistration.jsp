@@ -103,6 +103,13 @@ body {
 	box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
 }
 
+.btn-set {
+	color: #fff;
+	background-color: #7D766D;
+	border-color: #7D766D;
+}
+
+
 .white {
 	color: #fff;
 }
@@ -257,7 +264,7 @@ body {
 
 
 					<div class="mb-4"></div>
-					<button class="btn btn-primary btn-lg btn-block" type="submit">등록
+					<button class="btn btn-primary btn-lg btn-block btn-set" type="submit">등록
 						완료</button>
 
 				</form>
