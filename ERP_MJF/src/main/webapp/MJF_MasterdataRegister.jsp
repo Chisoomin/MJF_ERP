@@ -4,9 +4,11 @@
 
 <%
 String team_rs[] = new String[10];
+String color_rs[] = new String[20];
 Connection conn = null;
 Statement stmt = null;
 ResultSet rs = null;
+ResultSet c_rs = null;
 int columnCount = 0;
 
 String url = "jdbc:mysql://mjfdb-aws.cxswvbzpdoox.ap-northeast-1.rds.amazonaws.com/MJFdb";
@@ -27,6 +29,19 @@ try {
 		team_rs[i] = rs.getString(1);
 		i++;
 	}
+	
+	//색깔 기준 정보
+	String sql_color = "SELECT color_data from MJFdb.masterdata_color";
+	stmt = conn.createStatement();
+	c_rs = stmt.executeQuery(sql_color);
+	/* ResultSetMetaData rsmd = rs.getMetaData();
+	columnCount = rsmd.getColumnCount(); */
+	int i = 0;
+	while (c_rs.next()) {
+		color_rs[i] = c_rs.getString(1);
+		i++;
+	}
+	
 	/* out.println("<script>alert('"+team_rs[2]+"');</script>"); */
 
 } catch (SQLException ex) {
@@ -34,6 +49,8 @@ try {
 } finally {
 	if (rs != null)
 		rs.close();
+	if (c_rs != null)
+		c_rs.close();
 	if (stmt != null)
 		stmt.close();
 	if (conn != null)
@@ -146,6 +163,39 @@ body {
 							
 						</div>
 						
+						<div class="col-md-6 mb-3">
+							<button class="btn btn-set btn-lg btn-block" name="val_ind"
+								id="val_ind" value="삭제" type="submit">삭제</button>
+						</div>
+					</div>
+				</form>
+				
+				<!-- 유경 파트 / 색깔 변경  -->
+				<hr class="hr">
+				<form action="process_mastercolor.jsp" method="post"
+					class="validation-form" novalidate>
+					<div class="row">
+						<div class="col-md-12 mb-3">
+							<label for="colorChange">품목 색깔 변경</label> <input type="text"
+								class="form-control" name="colorChange" id="colorChange"
+								placeholder="추가/삭제하고 싶은 색깔을 입력해주세요" value="" required>
+							<div class="invalid-feedback">변경하려는 색깔을 입력해주세요.</div>
+						</div>
+						<div class="col-md-12 mb-3">
+							<label for="colorIni">색깔 코드 입력</label> <input type="text"
+								class="form-control" name="colorIni" id="colorIni"
+								placeholder="색깔의 영어 이니셜(약어)을 작성해주세요" value="" required>
+							<div class="invalid-feedback">색깔 코드를 입력해주세요.</div>
+						</div>
+
+					</div>
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<button class="btn btn-set btn-lg btn-block" name="val_ind"
+								id="val_ind" value="추가" type="submit">추가</button>
+
+						</div>
+
 						<div class="col-md-6 mb-3">
 							<button class="btn btn-set btn-lg btn-block" name="val_ind"
 								id="val_ind" value="삭제" type="submit">삭제</button>
