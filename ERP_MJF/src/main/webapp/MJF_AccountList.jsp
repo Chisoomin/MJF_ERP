@@ -144,7 +144,7 @@ body {
 				<td><input type="checkbox"></td>
 				<td><%=cnt++%></td>
 				<td><%=Date%></td>
-				<td onclick="window.open('MJF_AccountDetail_process.jsp?key=')"><%=Code%></td>
+				<td><a href="MJF_AccountDetail.jsp?Code=<%=Code%>" style="text-decoration-line: none; color: #000000;"><%=Code %></a></td>
 				<td><%=Name%></td>
 				<td><%=Ceo%></td>
 				<td><%=setType%></td>
@@ -163,11 +163,5 @@ body {
 			<input type="button" width="50px" name="del" value="삭제" style="color: #ffffff; background-color: #7D766D;">		
 		</div>
 	</div>
-	<script>
-		function sendName() {
-        let userName = $('#writeUserName').val();
-         window.location.href = "/main?user=" + userName;
-     }
-	</script>
 </body>
 </html>

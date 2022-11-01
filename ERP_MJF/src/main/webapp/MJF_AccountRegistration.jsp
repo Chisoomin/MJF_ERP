@@ -278,8 +278,7 @@ body {
 	    window.onload = function() {
 			today = new Date();
 			today = today.toISOString().slice(0, 10);
-			bir = document.getElementById("begin_date");
-			bir.value = today;
+			document.getElementById("begin_date").value = today;
 		}
   </script>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

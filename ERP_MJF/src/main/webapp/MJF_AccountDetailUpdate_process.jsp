@@ -56,8 +56,8 @@ try {
 </head>
 <body>
 <script>
-alert("수정 되었습니다");
-location.href='MJF_AccountList.jsp'
+alert("등록 되었습니다");
+location.href='MJF_AccountRegistration.jsp'
 </script>
 </body>
 </html>
