@@ -86,16 +86,9 @@ body {
 			</div>
 		</div>
 	</div>
-	
-<%--	<div class="container">
-		<div class="input-form-backgroud row">
-			<div class="input-form">
-			</div>
-		</div>
-	</div>
---%>	
 	<div class="container">
 	<div class="input-form-backgroud row">
+		<form action="MJF_AccountList_process.jsp" method="post" class="row">
 		<table id="list" class="input-form" style="text-aling: center; border: 1px solid #7D766D">
 			<thead>
 				<tr style="color: #ffffff; background-color: #7D766D; height: 40px; text-align: center;">
@@ -131,17 +124,17 @@ body {
 						rs = pstmt.executeQuery();
 						
 						while(rs.next()) {
-							Date = rs.getString(12);
+							Date = rs.getString(13);
 							Code = rs.getString(1);
 							Name = rs.getString(2);
 							Ceo = rs.getString(3);
-							setType = rs.getString(11);
-							BusinessType = rs.getString(14);
+							setType = rs.getString(12);
+							BusinessType = rs.getString(15);
 							Tel = rs.getString(4);
-							Valiable = rs.getString(13);
+							Valiable = rs.getString(14);
 				%>
 				<tr height="30" style="text-align: center;">
-				<td><input type="checkbox"></td>
+				<td><input type="checkbox" name="chk" value="<%=Code%>"></td>
 				<td><%=cnt++%></td>
 				<td><%=Date%></td>
 				<td><a href="MJF_AccountDetail.jsp?Code=<%=Code%>" style="text-decoration-line: none; color: #000000;"><%=Code %></a></td>
@@ -159,8 +152,9 @@ body {
 					}	
 				%>
 				</table>
-			<input type="button" width="50px" name="add" value="추가" style="color: #ffffff; background-color: #7D766D;">
-			<input type="button" width="50px" name="del" value="삭제" style="color: #ffffff; background-color: #7D766D;">		
+			<input type="button" width="50px" name="add" value="추가" onclick="location.href='MJF_AccountRegistration.jsp'" style="color: #ffffff; background-color: #7D766D;">
+			<input type="submit" width="50px" name="del" value="삭제" style="color: #ffffff; background-color: #7D766D;">
+		</form>
 		</div>
 	</div>
 </body>

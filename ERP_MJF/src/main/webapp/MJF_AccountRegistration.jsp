@@ -94,30 +94,31 @@ body {
 				
 					<div class="row">
 						<div class="col-md-7 mb-3">
-							<label>사업자등록번호</label> 
+							<label>사업자등록번호 (*)</label> 
 							<input type="text" class="form-control" name="code" maxlength="12" placeholder="000-00-00000" required>
 							<div class="invalid-feedback">사업자등록번호를 입력해주세요.</div>
 						</div>
 						<div class="col-md-4 mb-3">
-							<label>업체구분</label>
-							<select class="custom-select d-block w-100" name="type" required>
-								<option>-선택-</option>
+							<label>업체구분 (*)</label>
+							<select class="custom-select d-block w-100" name="type" id="type" required>
+								<option value="">-선택-</option>
 								<option value="매입처">매입처</option>
 								<option value="매출처">매출처</option>
 								<option value="기타">기타</option>
 							</select>
+							<div class="invalid-feedback">업체구분을 입력해주세요.</div>
 						</div>
 					</div>
 					
 					<div class="row">
 						<div class="col-md-7 mb-3">
-							<label>거래처명</label> 
+							<label>거래처명 (*)</label> 
 							<input type="text" class="form-control" name="name" required>
 							<div class="invalid-feedback">거래처명을 입력해주세요.</div>
 						</div>
 						<div class="col-md-4 mb-3">
-							<label>거래시작일</label> 
-							<input type="date" class="form-control" id="begin_date" name="begin_date">
+							<label>거래시작일 (*)</label> 
+							<input type="date" class="form-control" id="begin_date" name="begin_date" required>
 							<div class="invalid-feedback">거래시작일을 입력해주세요.</div>
 						</div>
 					</div>
@@ -126,57 +127,57 @@ body {
 						<div class="col-md-7 mb-3">
 							<label>대표자</label> 
 							<input type="text" class="form-control" name="ceo">
-							<div class="invalid-feedback">대표자를 입력해주세요.</div>
 						</div>
 						<div class="col-md-4 mb-3">
-							<label>거래현황</label> 
-							<select class="custom-select d-block w-100" name="vailable">
+							<label>거래현황 (*)</label> 
+							<select class="custom-select d-block w-100" name="vailable" id="vailable" required>
+								<option value="">-선택-</option>
 								<option value="사용중">사용중</option>
 								<option value="미사용">미사용</option>
 							</select>
+							<div class="invalid-feedback">거래현황을 입력해주세요.</div>
 						</div>
 					</div>
 					
 					<div class="row">
 						<div class="col-md-4 mb-3">
-							<label>업태</label> 
-							<select class="custom-select d-block w-100" name="type_of_business">
-								<option>-선택-</option>
+							<label>업태 (*)</label> 
+							<select class="custom-select d-block w-100" name="type_of_business" id="type_of_business" required>
+								<option value="">-선택-</option>
 								<option value="제조업">제조업</option>
 								<option value="도매 및 소매업">도매 및 소매업</option>
 								<option value="운수 및 창고업">운수 및 창고업</option>
 								<option value="서비스업">서비스업</option>
 								<option value="기타">기타</option>
 							</select>
+							<div class="invalid-feedback">업태를 입력해주세요.</div>
 						</div>
 						<div class="col-md-7 mb-3">
 							<label>종목</label> 
-							<input type="text" class="form-control" name="items_of_business" required>
-							<div class="invalid-feedback">종목을 입력해주세요.</div>
+							<input type="text" class="form-control" name="items_of_business">
 						</div>
 					</div>
 					
 					
 					<div class="row">
 						<div class="col-md-5 mb-3">
-							<label>연락처</label> 
+							<label>연락처 (*)</label> 
 							<input type="tel" class="form-control" name="tel" placeholder="000-0000-0000" required>
 							<div class="invalid-feedback">연락처를 입력해주세요.</div>
 						</div>
 						<div class="col-md-5 mb-3">
 							<label>FAX</label> 
 							<input type="tel" class="form-control" name="fax" >
-							<div class="invalid-feedback">FAX를 입력해주세요.</div>
 						</div>
 					</div>
 					
 					<div class="row">
 						<div class="col-md-4 mb-3">
-							<label>주소</label> 
+							<label>주소 (*)</label> 
 							<input type="text" class="form-control" name="postcode" id="postcode" placeholder="우편번호" required readonly>
 						</div>
 						<div class="col-md-auto">
-						<label class="white">우편번호</label> 
+						<label class="white">우편번호 (*)</label> 
 							<input type="button" class="form-control" onclick="sample6_execDaumPostcode()" name="checkaddr" id="checkaddr" value="우편번호찾기" required>
 						</div>
 						<div class="col-md-11 mb-3">
@@ -214,12 +215,12 @@ body {
 					
 					<div class="row">
 						<div class="col-md-5 mb-3">
-							<label>담당자</label> 
+							<label>담당자 (*)</label> 
 							<input type="text" class="form-control" name="sales_name" required>
 							<div class="invalid-feedback">담당자를 입력해주세요.</div>
 						</div>
 						<div class="col-md-5 mb-3">
-							<label>담당자 연락처</label> 
+							<label>담당자 연락처 (*)</label> 
 							<input type="tel" class="form-control" name="sales_tel" placeholder="000-0000-0000" required>
 							<div class="invalid-feedback">담당자 연락처를 입력해주세요.</div>
 						</div>
@@ -254,8 +255,8 @@ body {
 						
 					<hr class="mb-4">
 					<div class="mb-4"></div>
-					<button class="btn btn-set btn-lg btn-block" type="submit">등록</button>
-					<button class="btn btn-set btn-lg btn-block" type="submit">취소</button>
+					<input class="btn btn-set btn-lg btn-block" type="submit" value="등록">
+					<input class="btn btn-set btn-lg btn-block" type="button" value="취소" onclick="location.href='MJF_AccountList.jsp'">
 				</form>
 			</div>
 		</div>
@@ -268,7 +269,7 @@ body {
 				if (form.checkValidity() === false) {
 					event.preventDefault();
             		event.stopPropagation();
-          		}	
+          		}
           	form.classList.add('was-validated');
         	}, false);
       	});
