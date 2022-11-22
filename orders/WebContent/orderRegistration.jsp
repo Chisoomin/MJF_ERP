@@ -1,9 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.sql.*"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 
 <%
-	//
+	Date nowTime = new Date();
+SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+
+String time = sf.format(nowTime);
+
+request.setAttribute("minDate", time);
 %>
 
 <!DOCTYPE html>
@@ -158,6 +165,14 @@ body {
 	margin-top: -3px;
 	vertical-align: middle;
 }
+
+.delete_line_button {
+	float: right;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	margin-top: -3px;
+	vertical-align: middle;
+}
 </style>
 
 <script language="javascript">
@@ -215,6 +230,23 @@ body {
 			$('#supplyPrice').text(supplyPrice);
 		});
 	});
+	
+	$(function() {
+		$( ".datepicker" ).datepicker({ minDate: 0});
+	});
+	
+	$('#delete_line_button').click(function() {
+		if ($("input:checkbox[name='deleteLine']:checked").length === 0) {
+			alert("삭제할 항목을 선택해 주세요.");
+			return;
+		}
+		
+		$("input:checkbox[name='deleteLine']:checked").each(function(k, kVal) {
+			colsole.log("kVal ::", kVal.parentElement.parentElement.parentElement);
+			let a = kVal.parentElement.parentElement.parentElement;
+			$(th).remove();
+		});
+	});
 </script>
 
 </head>
@@ -238,13 +270,14 @@ body {
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label for="department">수주일자</label> <input type="date"
-								class="form-control" id="orderDate" name="orderDate" required>
+								class="form-control orderDate" id="orderDate" name="orderDate"
+								min="${minDate}" required>
 							<div class="invalid-feedback">수주일자를 입력해주세요.</div>
 						</div>
 						<div class="col-md-6 mb-3">
 							<label for="team">납기일자</label> <input type="date"
 								class="form-control" id="deliveryDate" name="deliveryDate"
-								required>
+								min="${minDate}" required>
 							<div class="invalid-feedback">납기일자를 입력해주세요.</div>
 						</div>
 					</div>
@@ -281,13 +314,16 @@ body {
 						<div class="col">
 							<div class="table_top">
 								<label for="orderProduct" class="order_title">수주품목</label> <input
+									type="button" name="deleteLine" id="delete_line_button" class="delete_line_button"
+									value="행 삭제"><input
 									type="button" name="orderNum" class="product_search_button"
 									value="품목찾기" onclick="productSearch();">
+
 							</div>
 							<table class="table.txc-table tg orderTable">
 								<thead>
 									<tr>
-										<th class="tg-baqh">번호</th>
+										<th class="tg-baqh"></th>
 										<th class="tg-baqh">품목코드</th>
 										<th class="tg-baqh">품목이름</th>
 										<th class="tg-baqh">색상</th>
@@ -302,7 +338,8 @@ body {
 								</thead>
 								<tbody>
 									<tr>
-										<td class="tg-baqh">1</td>
+										<td class="tg-baqh"><input type="checkbox"
+											name="product_row"></td>
 
 										<td class="tg-baqh"><input type="text"
 											class="table-input-style" id="productCode" name="productCode"
@@ -337,9 +374,8 @@ body {
 											readonly></td>
 
 										<td class="tg-baqh"><input type="text"
-											class="table-input-style" id="totalPrice"
-											name="totalPrice" onkeyup="priceCalc()" required
-											readonly></td>
+											class="table-input-style" id="totalPrice" name="totalPrice"
+											onkeyup="priceCalc()" required readonly></td>
 
 										<td class="tg-baqh"><input type="text" name="orderNote"
 											class="table-input-style" id="orderNote"></td>

@@ -11,8 +11,12 @@ String password = "mjfrootpw";
 
 Connection conn = DriverManager.getConnection(url, user, password);
 
-String sql = "select * from product_table;";
-String sql2 = "select FORMAT(product_price, 0) from product_table;";
+String productCode = request.getParameter("productCode");
+
+String sql = "SELECT product_code, product_name, product_color, product_measure, product_quantity, product_price, order_note FROM order_table WHERE order_num = '"
+		+ productCode + "';";
+		
+// String sql = "SELECT product_code, product_name, product_color, product_measure, product_quantity, product_price, order_note FROM order_table WHERE order_num = '220901-001'";
 
 PreparedStatement pstmt = conn.prepareStatement(sql);
 ResultSet rs = pstmt.executeQuery(sql);
@@ -105,99 +109,64 @@ body {
 .product_check {
 	vertical-align: middle;
 }
+
+.tableHead {
+	text-align: center;
+}
 </style>
 
 <script>
-	function sendProductValue(productCode, productName, productColor, productMeasure, productPrice) {
-		opener.setProductValue(productCode, productName, productColor, productMeasure, productPrice);
-		window.close();
-	}
+	
 </script>
 
-<script>
-	$(document).ready(function() {
-		$("#registBtn").click(function(){
-			var rowData = new Array();
-			var tdArr = new Array();
-	
-			var checkbox = $("input[name=product_row]:checked");
-	
-			checkbox.each(function(i) {
-				var tr = checkobx.parent().parent().eq(i);
-				var td = tr.children();
-		
-				rowData.push(tr.text());
-		
-				var productCode = td.eq(1).text()+", ";
-				var productName = td.eq(2).text()+", ";
-				var productColor = td.eq(3).text()+", ";
-				var productMeasure = td.eq(4).text()+", ";
-				var productPrice = td.eq(5).text();
-		
-				tdArr.push(productCode);
-				tdArr.push(productName);
-				tdArr.push(productColor);
-				tdArr.push(productMeasure);
-				tdArr.push(productPrice);
-			}
-		});
-
-		alert(rowData);
-		alert(tdArr);
-	});
-</script>
 </head>
 <body>
 
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-title col-md-12 mx-auto">
-				<h3>품목찾기</h3>
+				<h3>품목정보</h3>
 			</div>
 		</div>
 	</div>
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
-				<!-- 				<form action="" method="post" class="validation-form" -->
-				<!-- 					name="orderResgistraion" novalidate> -->
-
-				<div id="layoutSidenav_content">
+				<div>
+					<!-- <div id="layoutSidenav_content"> -->
 					<main>
 						<div class="container-fluid px-4">
 							<div class="card mb-4">
 								<div class="card-header">
-									<i class="fas fa-table me-1"></i> 품목찾기
+									<i class="fas fa-table me-1"></i> 품목 상세 정보
 								</div>
 								<div class="card-body">
 									<table id="datatablesSimple" class="productTable">
 										<thead>
-											<tr>
-												<th>선택</th>
-												<th>품목코드</th>
-												<th>품목이름</th>
-												<th>색상</th>
-												<th>단위</th>
-												<th>단가</th>
+											<tr class="tableHead">
+												<th nowrap width="100%">품목코드</th>
+												<th nowrap width="100%">품목이름</th>
+												<th nowrap width="100%">품목색상</th>
+												<th nowrap width="100%">품목단위</th>
+												<th nowrap width="100%">품목수량</th>
+												<th nowrap width="100%">품목단가</th>
+												<th nowrap width="100%">비고</th>
 											</tr>
 										</thead>
 										<tbody>
 											<%
 												while (rs.next()) {
-													int count = 1;
 											%>
 											<tr>
-												<td id="productCheck"><input type="checkbox"
-													name="product_row" value="<%=count%>"></td>
-												<td id="productCode"><%=rs.getString("product_code") + String.format("%03d", rs.getInt("product_num"))%></td>
-												<td id="productName"><a
-													href="javascript:sendProductValue('<%=rs.getString("product_code") + String.format("%03d", rs.getInt("product_num"))%>', '<%=rs.getString("product_name")%>', '<%=rs.getString("product_color")%>', '<%=rs.getString("product_measure")%>', '<%=rs.getString("product_price")%>')"><%=rs.getString("product_name")%></a></td>
-												<td id="productColor"><%=rs.getString("product_color")%></td>
-												<td id="productMeasure"><%=rs.getString("product_measure")%></td>
-												<td id="productPrice"><%=rs.getString("product_price")%></td>
+												<td id="productCode" nowrap width="100%"><%=rs.getString("product_code")%></td>
+												<td id="productName" nowrap width="100%"><%=rs.getString("product_name")%></td>
+												<td id="productColor" nowrap width="100%"><%=rs.getString("product_color")%></td>
+												<td id="productMeasure" nowrap width="100%"><%=rs.getString("product_measure")%></td>
+												<td id="productQuantity" nowrap width="100%"><%=rs.getString("product_quantity")%></td>
+												<td id="productPrice" nowrap width="100%"><%=rs.getString("product_price")%></td>
+												<td id="orderNote" nowrap width="100%"><%=rs.getString("order_note")%></td>
 											</tr>
 											<%
-												count++;
 												}
 											%>
 										</tbody>
@@ -207,28 +176,10 @@ body {
 						</div>
 						 
 						<div class="col-lg-12" id="ex3_Result1"></div>
-						<button class="btn btn-set btn-lg btn-block" id="registBtn">등록</button>
 					</main>
 				</div>
-				<!-- 				</form> -->
 			</div>
 		</div>
 	</div>
-	
-	<script>
-		window.addEventListener('load', () => {
-      	const forms = document.getElementsByClassName('validation-form');
-		Array.prototype.filter.call(forms, (form) => {
-			form.addEventListener('submit', function (event) {
-				if (form.checkValidity() === false) {
-					event.preventDefault();
-            		event.stopPropagation();
-          		}	
-          	form.classList.add('was-validated');
-        	}, false);
-      	});
-    	}, false);
-	</script>
-
 </body>
 </html>

@@ -11,7 +11,7 @@ String password = "mjfrootpw";
 
 Connection conn = DriverManager.getConnection(url, user, password);
 
-String sql = "select * from account_table;";
+String sql = "SELECT * FROM account_table WHERE account_vailable = '사용중';";
 
 PreparedStatement pstmt = conn.prepareStatement(sql);
 ResultSet rs = pstmt.executeQuery(sql);
@@ -135,10 +135,10 @@ body {
 										<table id="datatablesSimple" class="accountTable">
 											<thead>
 												<tr>
-													<th>사업자번호</th>
-													<th>거래처이름</th>
+													<th nowrap width="15%">사업자번호</th>
+													<th nowrap width="15%">거래처이름</th>
 													<th>주소</th>
-													<th>전화번호</th>
+													<th nowrap width="15%">전화번호</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -146,11 +146,11 @@ body {
 													while (rs.next()) {
 												%>
 												<tr>
-													<td id="accountCode"><%=rs.getString("account_code")%></td>
-													<td id="accountName"><a
+													<td id="accountCode" nowrap width="15%"><%=rs.getString("account_code")%></td>
+													<td id="accountName" nowrap width="15%"><a
 														href="javascript:sendAccountValue('<%=rs.getString("account_code")%>', '<%=rs.getString("account_name")%>')"><%=rs.getString("account_name")%></a></td>
 													<td><%=rs.getString("account_address")%></td>
-													<td><%=rs.getString("account_tel")%></td>
+													<td nowrap width="15%"><%=rs.getString("account_tel")%></td>
 												</tr>
 												<%
 													}

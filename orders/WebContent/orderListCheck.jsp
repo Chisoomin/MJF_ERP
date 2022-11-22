@@ -112,12 +112,11 @@ body {
 </style>
 
 <script>
-
+		function memberInfo(memberId) { window.open("memberInfo.jsp?memberId=" + memberId, "memberInfo", "width=auto, height=auto, left=auto, top=auto"); }
+		function accountInfo(accountCode) { window.open("accountInfo.jsp?accountCode=" + accountCode, "accountInfo", "width=auto, height=auto, left=auto, top=auto"); }
+		function productInfo(productCode) { window.open("productInfo.jsp?productCode=" + productCode, "productInfo", "width=auto, height=auto, left=auto, top=auto"); }
 </script>
 
-<script>
-
-</script>
 </head>
 <body>
 
@@ -130,7 +129,7 @@ body {
 	</div>
 	<div class="container">
 		<div class="input-form-backgroud row">
-			<div class="input-form col-md-12 mx-">
+			<div class="input-form col-md-12 mx-auto">
 				<div>
 					<!-- <div id="layoutSidenav_content"> -->
 					<main>
@@ -190,27 +189,40 @@ body {
 												<td id="orderNum"><%=rs.getString("order_num")%></td>
 												<td id="orderDate"><%=rs.getString("order_date")%></td>
 												<td id="deliveryDate"><%=rs.getString("delivery_date")%></td>
-												<td id="memberId"><%=rs.getString("member_id")%></td>
+												<td id="memberId"><a href=#
+													onclick="memberInfo(<%=rs.getString("member_id")%>)"><%=rs.getString("member_id")%></a>
+												</td>
 												<td id="memberName"><%=rs.getString("member_name")%></td>
-												<td id="accountCode"><%=rs.getString("account_code")%></td>
+												<td id="accountCode"><a href=#
+													onclick="accountInfo('<%=rs.getString("account_code")%>')"><%=rs.getString("account_code")%></a></td>
 												<td id="accountName"><%=rs.getString("account_name")%></td>
-												<%-- 												<td id="productCode"><%=rs.getString("product_code")%></td> --%>
-												<td id="productName">
-													<%
-														if (rs.getInt("COUNT(order_num)") > 1) {
-													%> <%=rs.getString("product_name")%> 외 <%=rs.getInt("COUNT(order_num)")%>개
-													<%
-														} else if (rs.getInt("COUNT(order_num)") == 1) {
-													%> <%=rs.getString("product_name")%> <% }%></td>
-												<%-- 												<td id="productColor"><%=rs.getString("product_color")%></td> --%>
-												<%-- 												<td id="productMeasure"><%=rs.getString("product_measure")%></td> --%>
-												<%-- 												<td id="productQuan"><%=rs.getString("product_quantity")%></td> --%>
+												<td id="productName"><a href=#
+													onclick="productInfo('<%=rs.getString("order_num")%>')"> <%
+ 	if (rs.getInt("COUNT(order_num)") > 1) {
+ %> <%=rs.getString("product_name")%> 외 <%=rs.getInt("COUNT(order_num)") - 1%>개
+														<%
+ 	} else if (rs.getInt("COUNT(order_num)") == 1) {
+ %> <%=rs.getString("product_name")%> <%
+ 	}
+ %>
+												</a></td>
 												<td id="productPrice"><%=rs.getString("product_price")%></td>
 												<td id="supplyPrice"><%=rs.getString("supply_price")%></td>
 												<td id="vat"><%=rs.getString("vat")%></td>
 												<td id="totalAmount"><%=rs.getString("total_amount")%></td>
-												<td id="orderProgress"><%=rs.getString("order_progress")%></td>
-<%-- 												<td id="orderNote"><%=rs.getString("order_note")%></td> --%>
+												<td id="orderProgress">
+													<%
+														if (rs.getString("order_progress").equals("완료")) {
+													%>
+													<div style="color: green;"><%=rs.getString("order_progress")%></div>
+													<%
+														} else if (rs.getString("order_progress").equals("진행중")) {
+													%>
+													<div style="color: red;"><%=rs.getString("order_progress")%></div>
+													<%
+														}
+													%>
+												</td>
 											</tr>
 											<%
 												}

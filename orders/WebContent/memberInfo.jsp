@@ -11,7 +11,9 @@ String password = "mjfrootpw";
 
 Connection conn = DriverManager.getConnection(url, user, password);
 
-String sql = "select * from member_table WHERE working_status = '근무중';";
+String memberId = request.getParameter("memberId");
+
+String sql = "SELECT * FROM member_table WHERE member_id = '" + memberId + "';";
 
 PreparedStatement pstmt = conn.prepareStatement(sql);
 ResultSet rs = pstmt.executeQuery(sql);
@@ -100,13 +102,27 @@ body {
 	text-align: center;
 	vertical-align: middle;
 }
+
+.order_title {
+	margin-bottom: 0px;
+}
+
+.inputTitle {
+	font-weight: bold;
+	font-size: large;
+}
+
+.inputMargin {
+	margin-bottom: 20px;
+}
+
+.btnMargin {
+	margin-top: 50px;
+}
 </style>
 
 <script>
-	function sendEmployeeValue(memberId, memberName) {
-		opener.setEmployeeValue(memberId, memberName);
-		window.close();
-	}
+// 	$("input").filter("[value=null]").val(" ");
 </script>
 
 </head>
@@ -115,74 +131,57 @@ body {
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-title col-md-12 mx-auto">
-				<h3>담당자찾기</h3>
+				<h3>담당자정보</h3>
 			</div>
 		</div>
 	</div>
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
-
-				<div id="layoutSidenav_content">
-					<main>
-						<div class="container-fluid px-4">
-							<div class="card mb-4">
-								<div class="card-header">
-									<i class="fas fa-table me-1"></i> 담당자찾기
-								</div>
-								<div class="card-body">
-									<table id="datatablesSimple">
-										<thead>
-											<tr>
-												<th>사원번호</th>
-												<th>담당자이름</th>
-												<th>부서(팀)</th>
-												<th>직급</th>
-												<th>입사일</th>
-											</tr>
-										</thead>
-										<tbody>
-											<%
-												while (rs.next()) {
-											%>
-											<tr>
-												<td><%=rs.getString("member_id")%></td>
-												<td id="memberName"><a
-													href="javascript:sendEmployeeValue('<%=rs.getString("member_id")%>', '<%=rs.getString("member_name")%>')"><%=rs.getString("member_name")%></a></td>
-												<td><%=rs.getString("team")%></td>
-												<td><%=rs.getString("memposition")%></td>
-												<td><%=rs.getString("entrydate")%></td>
-											</tr>
-											<%
-												}
-											%>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</main>
+				<%
+					while (rs.next()) {
+				%>
+				<div class="row">
+					<div class="col-md-12">
+						<label for="department" class="inputTitle">사원번호</label> <input
+							type="text" value=<%=rs.getString("member_id")%>
+							class="inputMargin form-control" readonly>
+					</div>
 				</div>
-
-				<div class="mb-4"></div>
+				<div class="row">
+					<div class="col-md-12">
+						<label for="department" class="inputTitle">담당자이름</label> <input
+							type="text" value=<%=rs.getString("member_name")%>
+							class="inputMargin form-control" readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label for="department" class="inputTitle">부서(팀)</label> <input
+							type="text" value=<%=rs.getString("team")%>
+							class="inputMargin form-control" readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label for="department" class="inputTitle">직급</label> <input
+							type="text" value=<%=rs.getString("memposition")%>
+							class="inputMargin form-control" readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label for="department" class="inputTitle">입사일</label> <input
+							type="text" value=<%=rs.getString("entrydate")%>
+							class="inputMargin form-control" readonly>
+					</div>
+				</div>
+				<%
+					}
+				%>
+<!-- 				<button class="btn btn-set btn-lg btn-block btnMargin" type="button">등록</button> -->
 			</div>
 		</div>
 	</div>
-	
-	<script>
-		window.addEventListener('load', () => {
-      	const forms = document.getElementsByClassName('validation-form');
-		Array.prototype.filter.call(forms, (form) => {
-			form.addEventListener('submit', function (event) {
-				if (form.checkValidity() === false) {
-					event.preventDefault();
-            		event.stopPropagation();
-          		}	
-          	form.classList.add('was-validated');
-        	}, false);
-      	});
-    	}, false);
-  	</script>
-
 </body>
 </html>
