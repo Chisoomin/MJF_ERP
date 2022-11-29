@@ -100,7 +100,7 @@ body {
 						</div>
 						<div class="col-md-4 mb-3">
 							<label>업체구분 (*)</label>
-							<select class="custom-select d-block w-100" name="type" id="type" required>
+							<select class="form-control custom-select d-block w-100" name="type" id="type" required>
 								<option value="">-선택-</option>
 								<option value="매입처">매입처</option>
 								<option value="매출처">매출처</option>
@@ -130,7 +130,7 @@ body {
 						</div>
 						<div class="col-md-4 mb-3">
 							<label>거래현황 (*)</label> 
-							<select class="custom-select d-block w-100" name="vailable" id="vailable" required>
+							<select class="form-control custom-select d-block w-100" name="vailable" id="vailable" required>
 								<option value="">-선택-</option>
 								<option value="사용중">사용중</option>
 								<option value="미사용">미사용</option>
@@ -142,7 +142,7 @@ body {
 					<div class="row">
 						<div class="col-md-4 mb-3">
 							<label>업태 (*)</label> 
-							<select class="custom-select d-block w-100" name="type_of_business" id="type_of_business" required>
+							<select class="form-control custom-select d-block w-100" name="type_of_business" id="type_of_business" required>
 								<option value="">-선택-</option>
 								<option value="제조업">제조업</option>
 								<option value="도매 및 소매업">도매 및 소매업</option>
@@ -254,9 +254,10 @@ body {
 					</div>
 						
 					<hr class="mb-4">
-					<div class="mb-4"></div>
-					<input class="btn btn-set btn-lg btn-block" type="submit" value="등록">
-					<input class="btn btn-set btn-lg btn-block" type="button" value="취소" onclick="location.href='MJF_AccountList.jsp'">
+					<div>
+					<input class="btn btn-set btn-block" type="submit" value="등록">
+					<input class="btn btn-set btn-block" type="button" value="취소" onclick="location.href='MJF_AccountList.jsp'">
+					</div>
 				</form>
 			</div>
 		</div>

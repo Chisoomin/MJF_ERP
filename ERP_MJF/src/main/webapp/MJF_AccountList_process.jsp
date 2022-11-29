@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" import="java.text.SimpleDateFormat"%>
+<%@ page import="bbs.BbsDAO" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +24,7 @@ String password = "mjfrootpw";
 
 try {
 	conn = DriverManager.getConnection(url, user, password);
-	String sql = "delete from account_table where account_code=?";
+	String sql = "update account_table set account_vailable='미사용' where account_code=?";
 	pstmt = conn.prepareStatement(sql);
 
 	for(int i=0; i<bd_no.length; i++){
@@ -51,7 +53,7 @@ try {
 }
 %>
 <script>
-alert("삭제 되었습니다");
+alert("수정 되었습니다");
 location.href='MJF_AccountList.jsp'
 </script>
 </body>

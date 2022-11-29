@@ -97,28 +97,28 @@ try {
 	rs = pstmt.executeQuery();
 	
 	if(rs.next()){		
-		String code = rs.getString(1);
-		String name = rs.getString(2);
-		String ceo = rs.getString(3);
-		String tel = rs.getString(4);
-		String fax = rs.getString(5);
-		String account_email = rs.getString(6);
-		String account_postcode = rs.getString(7);
-		String account_address = rs.getString(8);
-		String account_address2 = rs.getString(9);
-		String account_website = rs.getString(10);
-		String account_remark = rs.getString(11);
-		String account_type = rs.getString(12);
-		String account_begin_date = rs.getString(13);
-		String account_vailable = rs.getString(14);
-		String type_of_business = rs.getString(15);
-		String items_of_business = rs.getString(16);
-		String sales_mgr_name = rs.getString(17);
-		String sales_mgr_mobile = rs.getString(18);
-		String sales_mgr_email = rs.getString(19);
-		String bank_name = rs.getString(20);
-		String bank_account_number = rs.getString(21);
-		String bank_account_holder = rs.getString(22);
+		String code = rs.getString(2);
+		String name = rs.getString(3);
+		String ceo = rs.getString(4);
+		String tel = rs.getString(5);
+		String fax = rs.getString(6);
+		String account_email = rs.getString(7);
+		String account_postcode = rs.getString(8);
+		String account_address = rs.getString(9);
+		String account_address2 = rs.getString(10);
+		String account_website = rs.getString(11);
+		String account_remark = rs.getString(12);
+		String account_type = rs.getString(13);
+		String account_begin_date = rs.getString(14);
+		String account_vailable = rs.getString(15);
+		String type_of_business = rs.getString(16);
+		String items_of_business = rs.getString(17);
+		String sales_mgr_name = rs.getString(18);
+		String sales_mgr_mobile = rs.getString(19);
+		String sales_mgr_email = rs.getString(20);
+		String bank_name = rs.getString(21);
+		String bank_account_number = rs.getString(22);
+		String bank_account_holder = rs.getString(23);
 %>		
 	<div class="container">
 		<div class="input-form-backgroud row">
@@ -139,7 +139,7 @@ try {
 						</div>
 						<div class="col-md-4 mb-3">
 							<label>업체구분 (*)</label>
-							<select class="custom-select d-block w-100" name="type" id="type" required>
+							<select class="form-control custom-select d-block w-100" name="type" id="type" required>
 								<option value="">-선택-</option>
 								<option value="매입처" <% if(account_type.equals("매입처")){%>selected="selected"<%}%>>매입처</option>
 								<option value="매출처" <% if(account_type.equals("매출처")){%>selected="selected"<%}%>>매출처</option>
@@ -169,7 +169,7 @@ try {
 						</div>
 						<div class="col-md-4 mb-3">
 							<label>거래현황 (*)</label> 
-							<select class="custom-select d-block w-100" name="vailable" id="vailable" required>
+							<select class="form-control custom-select d-block w-100" name="vailable" id="vailable" required>
 								<option value="">-선택-</option>
 								<option value="사용중" <% if(account_vailable.equals("사용중")){%>selected="selected"<%}%>>사용중</option>
 								<option value="미사용" <% if(account_vailable.equals("미사용")){%>selected="selected"<%}%>>미사용</option>
@@ -181,7 +181,7 @@ try {
 					<div class="row">
 						<div class="col-md-4 mb-3">
 							<label>업태 (*)</label> 
-							<select class="custom-select d-block w-100" name="type_of_business" id="type_of_business" required>
+							<select class="form-control custom-select d-block w-100" name="type_of_business" id="type_of_business" required>
 								<option value="">-선택-</option>
 								<option value="제조업" <% if(type_of_business.equals("제조업")){%>selected="selected"<%}%>>제조업</option>
 								<option value="도매 및 소매업" <% if(type_of_business.equals("도매 및 소매업")){%>selected="selected"<%}%>>도매 및 소매업</option>
@@ -205,7 +205,7 @@ try {
 						</div>
 						<div class="col-md-5 mb-3">
 							<label>FAX</label> 
-							<input type="tel" class="form-control" name="fax" id="fax">
+							<input type="tel" class="form-control" name="fax" id="fax" value="<%=fax%>">
 						</div>
 					</div>
 					
@@ -302,8 +302,8 @@ try {
 %>						
 					<hr class="mb-4">
 					<div class="mb-4"></div>
-					<input class="btn btn-set btn-lg btn-block" type="submit" value="수정">
-					<input class="btn btn-set btn-lg btn-block" type="button" value="취소" onclick="location.href='MJF_AccountList.jsp'">
+					<input class="btn btn-set btn-block" type="submit" value="수정">
+					<input class="btn btn-set btn-block" type="button" value="취소" onclick="location.href='MJF_AccountList.jsp'">
 				</form>
 			</div>
 		</div>

@@ -89,6 +89,13 @@ body {
 			</div>
 		</div>
 	</div>
+<%
+	int pageNumber = 1;//기본적으로 1페이지
+	if (request.getParameter("pageNumber") != null)
+	pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+	String searchfield = request.getParameter("searchfield");
+	String searchtext = request.getParameter("searchtext");
+%>
 	<div class="container">
 	<div class="input-form-backgroud row">
 	<div style="margin-top: 75px;">
@@ -106,7 +113,7 @@ body {
 								<option value="items_of_business">종목</option>
 								<option value="account_address">주소</option>
 						</select></td>
-						<td><input type="text" class="form-control" placeholder="검색어 입력" id = "searchtext" name="searchtext" maxlength="100"></td>
+						<td><input type="text" class="form-control" id = "searchtext" name="searchtext" maxlength="100"></td>
 						<td><button type="submit" class="btn btn-set btn-block">검색</button></td>
 					</tr>
 				</table>
@@ -135,11 +142,15 @@ body {
 			</thead>
 			<tbody>
 				<%	
-				int pageNumber = 1;//기본적으로 1페이지
-				if (request.getParameter("pageNumber") != null)
-					pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 				BbsDAO bbsDAO = new BbsDAO();
-				ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
+				ArrayList<Bbs> list = bbsDAO.getSearch(request.getParameter("searchfield"), request.getParameter("searchtext"), pageNumber);
+				if (list.size() == 0) {
+					PrintWriter script = response.getWriter();
+					script.println("<script>");
+					script.println("alert('검색결과가 없습니다.')");
+					script.println("history.back()");
+					script.println("</script>");
+				}
 				for (int i = 0; i < list.size(); i++) {
 				%>
 				<tr height="30" style="text-align: center;">
@@ -163,23 +174,23 @@ body {
 				<%
 					if (pageNumber != 1) {//이전페이지로
 				%>
-				<a href="MJF_AccountList.jsp?pageNumber=<%=pageNumber - 1%>">◀ 이전</a>
+				<a href="MJF_AccountSearchList.jsp?pageNumber=<%=pageNumber - 1%>&searchfield=<%=searchfield%>&searchtext=<%=searchtext%>">◀ 이전</a>
 				<%
 					}
 				%>
 				<%
-					int n = (int) (bbsDAO.getCount() / 10 + 1);
+					int n = (int) (list.size() / 10 + 1);
 					for (int i = 1; i <= n; i++) {
 				%>
-				<a href="MJF_AccountList.jsp?pageNumber=<%=i%>">|<%=i%>|
+				<a href="MJF_AccountSearchList.jsp?pageNumber=<%=i%>&searchfield=<%=searchfield%>&searchtext=<%=searchtext%>">|<%=i%>|
 				</a>
 				<%
 					}
 				%>
 				<%
-					if (bbsDAO.nextPage(pageNumber + 1)) {//다음페이지가 존재하는가
+					if ((pageNumber + 1)<=(list.size() / 10 + 1)) {//다음페이지가 존재하는가
 				%>
-				<a href="MJF_AccountList.jsp?pageNumber=<%=pageNumber + 1%>">다음 ▶</a>
+				<a href="MJF_AccountSearchList.jsp?pageNumber=<%=pageNumber + 1%>&searchfield=<%=searchfield%>&searchtext=<%=searchtext%>">다음 ▶</a>
 				<%
 					}
 				%>
