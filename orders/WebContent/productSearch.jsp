@@ -112,9 +112,14 @@ body {
 		opener.setProductValue(productCode, productName, productColor, productMeasure, productPrice);
 		window.close();
 	}
-</script>
-
-<script>
+	
+	function selectItem() {
+		if($("input[name=product_row]:checked").length == 0) {
+			alert("체크할 품목을 선택해주세요.");
+			return false;
+		}
+	}
+	
 	$(document).ready(function() {
 		$("#registBtn").click(function(){
 			var rowData = new Array();
@@ -139,8 +144,13 @@ body {
 				tdArr.push(productColor);
 				tdArr.push(productMeasure);
 				tdArr.push(productPrice);
-			}
+			});
+			
+			window.opener.setResList(tdArr);
+			window.close();
 		});
+		
+		
 
 		alert(rowData);
 		alert(tdArr);
@@ -207,7 +217,7 @@ body {
 						</div>
 						 
 						<div class="col-lg-12" id="ex3_Result1"></div>
-						<button class="btn btn-set btn-lg btn-block" id="registBtn">등록</button>
+						<button class="btn btn-set btn-lg btn-block" type="submit" id="registBtn">등록</button>
 					</main>
 				</div>
 				<!-- 				</form> -->

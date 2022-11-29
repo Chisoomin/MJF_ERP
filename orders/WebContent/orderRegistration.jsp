@@ -247,6 +247,33 @@ body {
 			$(th).remove();
 		});
 	});
+	
+	function tableCreate() {
+		var tc = new Array();
+		var html = '';
+		
+		for(key in tc) {
+			html += '<tr>';
+			html += '<td>'+tc[key].name+'</td>';
+			html += '</tr>';
+		}
+		
+		$("#dynamicTbody").empty();
+		$("#dynamicTbody").append(html);
+	}
+	
+// 	function setResList(tdArr) {
+// 		for(var i=0; i<tdArr.length; i++) {
+// 			var trCnt = ($".orderTable tbody tr").length;
+// 			$(".orderTable tbody").append($("#resTr").html());
+// 			var lastTr = $("orderTable tbody tr:last")
+// 	        $(lastTr).find("td[name='productCode']").append(resArr[i].productCode);
+// 	        $(lastTr).find("td[name='productName']").append(resArr[i].productName);
+// 	        $(lastTr).find("td[name='productColor']").append(resArr[i].productColor);
+// 	        $(lastTr).find("td[name='productMeasure']").append(resArr[i].productMeasure);
+// 	        $(lastTr).find("td[name='productPrice']").append(resArr[i].productPrice);
+// 		}
+// 	}
 </script>
 
 </head>
@@ -314,8 +341,8 @@ body {
 						<div class="col">
 							<div class="table_top">
 								<label for="orderProduct" class="order_title">수주품목</label> <input
-									type="button" name="deleteLine" id="delete_line_button" class="delete_line_button"
-									value="행 삭제"><input
+									type="button" name="deleteLine" id="delete_line_button"
+									class="delete_line_button" value="행 삭제"><input
 									type="button" name="orderNum" class="product_search_button"
 									value="품목찾기" onclick="productSearch();">
 
@@ -323,7 +350,6 @@ body {
 							<table class="table.txc-table tg orderTable">
 								<thead>
 									<tr>
-										<th class="tg-baqh"></th>
 										<th class="tg-baqh">품목코드</th>
 										<th class="tg-baqh">품목이름</th>
 										<th class="tg-baqh">색상</th>
@@ -334,13 +360,31 @@ body {
 										<th class="tg-baqh">부가세</th>
 										<th class="tg-baqh">품목총액</th>
 										<th class="tg-baqh">비고</th>
+										<th class="tg-baqh"></th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<td class="tg-baqh"><input type="checkbox"
-											name="product_row"></td>
-
+									</tr>
+								</tbody>
+							</table>
+							<table class="table.txc-table tg orderTable">
+								<tbody id="resTr">
+									<tr>
+<!-- 										<td class="tg-baqh" name="productCode"></td> -->
+<!-- 										<td class="tg-baqh" name="productName"></td> -->
+<!-- 										<td class="tg-baqh" name="productColor"></td> -->
+<!-- 										<td class="tg-baqh" name="productMeasure"></td> -->
+<!-- 										<td class="tg-baqh" name="productQuan"><input type="text" -->
+<!-- 											name="productQuan" class="table-input-style" id="productQuan" -->
+<!-- 											onkeyup="priceCalc()"></td> -->
+<!-- 										<td class="tg-baqh" name="productPrice"></td> -->
+<!-- 										<td class="tg-baqh" name="supplyPrice"></td> -->
+<!-- 										<td class="tg-baqh" name="vat"></td> -->
+<!-- 										<td class="tg-baqh" name="totalPrice"></td> -->
+<!-- 										<td class="tg-baqh" name="orderNote"><input type="text" -->
+<!-- 											name="orderNote" class="table-input-style" id="orderNote"></td> -->
+<!-- 										<td class="tg-baqh"></td> -->
 										<td class="tg-baqh"><input type="text"
 											class="table-input-style" id="productCode" name="productCode"
 											onclick="productSearch();" required readonly></td>
@@ -379,6 +423,9 @@ body {
 
 										<td class="tg-baqh"><input type="text" name="orderNote"
 											class="table-input-style" id="orderNote"></td>
+											
+											<td class="tg-baqh"><input type="text" name="rowDelete"
+											class="table-input-style" id="rowDelete"></td>
 									</tr>
 									<tr>
 										<th colspan='5' class="tg-baqh">총액</th>

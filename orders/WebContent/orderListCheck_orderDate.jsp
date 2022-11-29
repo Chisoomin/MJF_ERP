@@ -11,12 +11,16 @@ String password = "mjfrootpw";
 
 Connection conn = DriverManager.getConnection(url, user, password);
 
+String startDate = request.getParameter("startDate");
+String endDate = request.getParameter("endDate");
+
 // String sql = "select * from order_table;";
-String sql = "SELECT *, COUNT(order_num) FROM order_table GROUP BY order_num HAVING COUNT(order_num) > 0;";
+String sql = "SELECT *, COUNT(order_num) FROM order_table WHERE order_date between date('" + startDate + "') and date('" + endDate + "') GROUP BY order_num HAVING COUNT(order_num) > 0;";
 
 PreparedStatement pstmt = conn.prepareStatement(sql);
 ResultSet rs = pstmt.executeQuery(sql);
 %>
+
 
 <!DOCTYPE html>
 <html>
