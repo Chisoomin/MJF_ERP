@@ -295,7 +295,7 @@ body {
 						수량 등록</button>
 					<button type="submit"
 						class="btn btn-set2 btn-lg btn-right mar btn-set"
-						onclick="popup('MJF_StockRegister.jsp',window.screen.width,window.screen.height);">신규
+						onclick="popup('MJF_ProductRegistration.jsp',window.screen.width,window.screen.height);">신규
 						품목 등록</button>
 					<button type="submit"
 						class="btn btn-set2 btn-lg btn-right mar btn-set"
@@ -306,9 +306,6 @@ body {
 			</div>
 		</div>
 	</div>
-
-
-
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
