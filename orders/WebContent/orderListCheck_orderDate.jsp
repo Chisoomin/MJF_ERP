@@ -21,7 +21,6 @@ PreparedStatement pstmt = conn.prepareStatement(sql);
 ResultSet rs = pstmt.executeQuery(sql);
 %>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -154,7 +153,6 @@ $(function() {
   $('input[name="datefilter"]').daterangepicker({
 	  linkedCalendars: false,
 	  ranges: {
-	        '오늘': [moment(), moment()],
 	        '어제': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
 	        '지난 7일': [moment().subtract(6, 'days'), moment()],
 	        '지난 30일': [moment().subtract(29, 'days'), moment()],
@@ -189,22 +187,26 @@ $(function() {
 
 });
 
+function todayDateLookup() {
+	location.replace("orderListCheck_todayDate.jsp");
+}
+
 function allDateLookup() {
 	location.replace("orderListCheck.jsp");
 }
 
 function orderDateLookup() {
 	location.replace("orderListCheck_orderDate.jsp?startDate=" + startDate + "&endDate=" + endDate);
-	alert(document.getElementById('selectDate').value);
-	alert("시작 날짜 : " + startDate);
-	alert("종료 날짜 : " + endDate);
+// 	alert(document.getElementById('selectDate').value);
+// 	alert("시작 날짜 : " + startDate);
+// 	alert("종료 날짜 : " + endDate);
 }
 
 function deliDateLookup() {
 	location.replace("orderListCheck_deliDate.jsp?startDate=" + startDate + "&endDate=" + endDate);
-	alert(document.getElementById('selectDate').value);
-	alert("시작 날짜 : " + startDate);
-	alert("종료 날짜 : " + endDate);
+// 	alert(document.getElementById('selectDate').value);
+// 	alert("시작 날짜 : " + startDate);
+// 	alert("종료 날짜 : " + endDate);
 }
 </script>
 
@@ -240,6 +242,10 @@ function deliDateLookup() {
 													class="input-group-text backgroundColor"> <i
 													class="far fa-calendar"></i>
 												</span>
+												<div style="margin-left: 16px;">
+												<button class="form-control col-md-auto"
+													type="submit" onclick="todayDateLookup()">오늘</button>
+												</div>
 												<div style="margin-left: 16px;">
 												<button class="form-control col-md-auto"
 													type="submit" onclick="allDateLookup()">전체</button>

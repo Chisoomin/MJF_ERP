@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.sql.*"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.*"%>
 
 <%
 	Class.forName("com.mysql.jdbc.Driver");
@@ -11,8 +13,12 @@ String password = "mjfrootpw";
 
 Connection conn = DriverManager.getConnection(url, user, password);
 
+Date nowTime = new Date();
+SimpleDateFormat simpleDateFormar = new SimpleDateFormat("yyyy-MM-dd");
+String today = simpleDateFormar.format(nowTime);
+
 // String sql = "select * from order_table;";
-String sql = "SELECT *, COUNT(order_num) FROM order_table GROUP BY order_num HAVING COUNT(order_num) > 0;";
+String sql = "SELECT *, COUNT(order_num) from order_table  WHERE order_date='" + today + "' OR delivery_date='" + today + "' GROUP BY order_num HAVING COUNT(order_num) > 0;";
 
 PreparedStatement pstmt = conn.prepareStatement(sql);
 ResultSet rs = pstmt.executeQuery(sql);
