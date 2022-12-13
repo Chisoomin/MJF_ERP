@@ -90,7 +90,7 @@ body {
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-form md-auto mx-auto">
-				<form action="MJF_AccountReigstration_process.jsp" method="post" class="validation-form" novalidate>
+				<form action="MJF_Layout.jsp?pageChange=MJF_AccountReigstration_process.jsp" method="post" class="validation-form" novalidate>
 				
 					<div class="row">
 						<div class="col-md-7 mb-3">
@@ -256,7 +256,7 @@ body {
 					<hr class="mb-4">
 					<div>
 					<input class="btn btn-set btn-block" type="submit" value="등록">
-					<input class="btn btn-set btn-block" type="button" value="취소" onclick="location.href='MJF_AccountList.jsp'">
+					<input class="btn btn-set btn-block" type="button" value="취소" onclick="location.href='MJF_Layout.jsp?pageChange=MJF_AccountList.jsp'">
 					</div>
 				</form>
 			</div>

@@ -46,7 +46,7 @@ Class.forName("com.mysql.jdbc.Driver");
 		PrintWriter script=response.getWriter();
 		script.println("<script>");
 		script.println("alert('등록 되었습니다.')");
-		script.println("location.href='MJF_AccountList.jsp?pageNumber=1'");
+		script.println("location.href='MJF_Layout.jsp?pageChange=MJF_AccountList.jsp?pageNumber=1'");
 		script.println("</script>");
 	}
 %>

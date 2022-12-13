@@ -95,7 +95,7 @@ body {
 	<div class="container">
 	<div class="input-form-backgroud row">
 	<div style="margin-top: 75px;">
-			<form method="post" name="search" action="MJF_AccountSearchList.jsp">
+			<form method="post" name="search" action="MJF_Layout.jsp?pageChange=MJF_AccountSearchList.jsp">
 				<table>
 					<tr>
 						<td style="width:150px"><select class="form-control" id="searchfield" name="searchfield">
@@ -120,7 +120,7 @@ body {
 	<div class="container">
 	<div class="input-form-backgroud row">
 	<div style="margin-top: 12px;">
-		<form action="MJF_AccountList_process.jsp" method="post" class="row">
+		<form action="MJF_Layout.jsp?pageChange=MJF_AccountList_process.jsp" method="post" class="row">
 		<table class="input-table" id="list">
 			<thead>
 				<tr style="color: #ffffff; background-color: #7D766D; height: 40px; text-align: center;">
@@ -153,7 +153,7 @@ body {
 				<td><input type="checkbox" name="chk" value="<%=list.get(i).getcode()%>"></td>
 				<td><%=list.get(i).getnum()%></td>
 				<td><%=list.get(i).getbegin_date()%></td>
-				<td><a href="MJF_AccountDetail.jsp?Code=<%=list.get(i).getcode()%>" style="text-decoration-line: none; color: #000000;"><%=list.get(i).getcode()%></a></td>
+				<td><a href="MJF_Layout.jsp?pageChange=MJF_AccountDetail.jsp?Code=<%=list.get(i).getcode()%>" style="text-decoration-line: none; color: #000000;"><%=list.get(i).getcode()%></a></td>
 				<td><%=list.get(i).getname()%></td>
 				<td><%=list.get(i).getceo()%></td>
 				<td><%=list.get(i).gettype()%></td>
@@ -170,7 +170,7 @@ body {
 				<%
 					if (pageNumber != 1) {//이전페이지로
 				%>
-				<a href="MJF_AccountSearchList.jsp?pageNumber=<%=pageNumber - 1%>&searchfield=<%=searchfield%>&searchtext=<%=searchtext%>" style="text-decoration-line: none; color: #7D766D;">◀ 이전</a>
+				<a href="MJF_Layout.jsp?pageChange=MJF_AccountSearchList.jsp?pageNumber=<%=pageNumber - 1%>&searchfield=<%=searchfield%>&searchtext=<%=searchtext%>" style="text-decoration-line: none; color: #7D766D;">◀ 이전</a>
 				<%
 					}
 				%>
@@ -178,7 +178,7 @@ body {
 					int n = (int) (list.size() / 10 + 1);
 					for (int i = 1; i <= n; i++) {
 				%>
-				<a href="MJF_AccountSearchList.jsp?pageNumber=<%=i%>&searchfield=<%=searchfield%>&searchtext=<%=searchtext%>" style="text-decoration-line: none; color: #7D766D;">|<%=i%>|
+				<a href="MJF_Layout.jsp?pageChange=MJF_AccountSearchList.jsp?pageNumber=<%=i%>&searchfield=<%=searchfield%>&searchtext=<%=searchtext%>" style="text-decoration-line: none; color: #7D766D;"><%=i%>
 				</a>
 				<%
 					}
@@ -186,11 +186,11 @@ body {
 				<%
 					if ((pageNumber + 1)<=(list.size() / 10 + 1)) {//다음페이지가 존재하는가
 				%>
-				<a href="MJF_AccountSearchList.jsp?pageNumber=<%=pageNumber + 1%>&searchfield=<%=searchfield%>&searchtext=<%=searchtext%>" style="text-decoration-line: none; color: #7D766D;">다음 ▶</a>
+				<a href="MJF_Layout.jsp?pageChange=MJF_AccountSearchList.jsp?pageNumber=<%=pageNumber + 1%>&searchfield=<%=searchfield%>&searchtext=<%=searchtext%>" style="text-decoration-line: none; color: #7D766D;">다음 ▶</a>
 				<%
 					}
 				%>
-				<input type="button" class="btn btn-set btn-block pull-right" name="add" value="추가" onclick="location.href='MJF_AccountRegistration.jsp'">
+				<input type="button" class="btn btn-set btn-block pull-right" name="add" value="추가" onclick="location.href='MJF_Layout.jsp?pageChange=MJF_AccountRegistration.jsp'">
 				<input type="submit" class="btn btn-set btn-block pull-right" name="del" value="사용중지" >
 			</div>
 		</form>
