@@ -58,7 +58,7 @@ try {
 <body>
 <script>
 alert("수정 되었습니다");
-location.href='MJF_AccountList.jsp';
+location.href='MJF_Layout.jsp?pageChange=MJF_AccountList.jsp';
 </script>
 </body>
 </html>
