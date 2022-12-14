@@ -307,9 +307,8 @@ body {
 					
 					<button type="submit"
 						class="btn btn-set2 btn-lg btn-right mar btn-set"
-						formaction='MJF_BadProductList.jsp'>불량 재고 등록</button>
-
-					<!-- onclick="popup('MJF_BadStockRegister.jsp',window.screen.width,window.screen.height);" -->
+						onclick="popup('MJF_ProductRegistration.jsp',window.screen.width,window.screen.height);">신규
+						품목 등록</button>
 
 				</form>
 
