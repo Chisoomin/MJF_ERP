@@ -173,6 +173,11 @@ body {
 	margin-top: -3px;
 	vertical-align: middle;
 }
+
+.buttonOps {
+	margin-top: 10px;
+	margin-bottom: 36px;
+}
 </style>
 
 <script language="javascript">
@@ -197,11 +202,83 @@ body {
 		document.getElementById("productPrice").value = productPrice;
 	}
 	
+	// 1
+	function productSearch_1() { window.open("productSearch_1.jsp", "productSearch", "width=auto, height=auto, left=auto, top=auto"); }
+	function setProductValue1(productCode_1, productName_1, productColor_1, productMeasure_1, productPrice_1) {
+		document.getElementById("productCode_1").value = productCode_1;
+		document.getElementById("productName_1").value = productName_1;
+		document.getElementById("productColor_1").value = productColor_1;
+		document.getElementById("productMeasure_1").value = productMeasure_1;
+		document.getElementById("productPrice_1").value = productPrice_1;
+	}
+	
+	// 2
+	function productSearch_2() { window.open("productSearch_2.jsp", "productSearch", "width=auto, height=auto, left=auto, top=auto"); }
+	function setProductValue2(productCode_2, productName_2, productColor_2, productMeasure_2, productPrice_2) {
+		document.getElementById("productCode_2").value = productCode_2;
+		document.getElementById("productName_2").value = productName_2;
+		document.getElementById("productColor_2").value = productColor_2;
+		document.getElementById("productMeasure_2").value = productMeasure_2;
+		document.getElementById("productPrice_2").value = productPrice_2;
+	}
+	
+	// 3
+	function productSearch_3() { window.open("productSearch_3.jsp", "productSearch", "width=auto, height=auto, left=auto, top=auto"); }
+	function setProductValue3(productCode_3, productName_3, productColor_3, productMeasure_3, productPrice_3) {
+		document.getElementById("productCode_3").value = productCode_3;
+		document.getElementById("productName_3").value = productName_3;
+		document.getElementById("productColor_3").value = productColor_3;
+		document.getElementById("productMeasure_3").value = productMeasure_3;
+		document.getElementById("productPrice_3").value = productPrice_3;
+	}
+	
+	// 4
+	function productSearch_4() { window.open("productSearch_4.jsp", "productSearch", "width=auto, height=auto, left=auto, top=auto"); }
+	function setProductValue4(productCode_4, productName_4, productColor_4, productMeasure_4, productPrice_4) {
+		document.getElementById("productCode_4").value = productCode_4;
+		document.getElementById("productName_4").value = productName_4;
+		document.getElementById("productColor_4").value = productColor_4;
+		document.getElementById("productMeasure_4").value = productMeasure_4;
+		document.getElementById("productPrice_4").value = productPrice_4;
+	}
+	
 	function priceCalc() {
 		document.getElementById("supplyPrice").value = document.getElementById("productPrice").value * document.getElementById("productQuan").value;
 		document.getElementById("vat").value = document.getElementById("supplyPrice").value / 10;
-		document.getElementById("totalAmount").value = parseInt(document.getElementById("supplyPrice").value) + parseInt(document.getElementById("vat").value);
 		document.getElementById("totalPrice").value = parseInt(document.getElementById("supplyPrice").value) + parseInt(document.getElementById("vat").value);
+		document.getElementById("totalAmount").value = parseInt(document.getElementById("totalPrice").value);
+	}
+	
+	// 1
+	function priceCalc_1() {
+		document.getElementById("supplyPrice_1").value = document.getElementById("productPrice_1").value * document.getElementById("productQuan_1").value;
+		document.getElementById("vat_1").value = document.getElementById("supplyPrice_1").value / 10;
+		document.getElementById("totalPrice_1").value = parseInt(document.getElementById("supplyPrice_1").value) + parseInt(document.getElementById("vat_1").value);
+		document.getElementById("totalAmount").value = parseInt(document.getElementById("totalPrice").value) + parseInt(document.getElementById("totalPrice_1").value);
+	}
+	
+	// 2
+	function priceCalc_2() {
+		document.getElementById("supplyPrice_2").value = document.getElementById("productPrice_2").value * document.getElementById("productQuan_2").value;
+		document.getElementById("vat_2").value = document.getElementById("supplyPrice_2").value / 10;
+		document.getElementById("totalPrice_2").value = parseInt(document.getElementById("supplyPrice_2").value) + parseInt(document.getElementById("vat_2").value);
+		document.getElementById("totalAmount").value = parseInt(document.getElementById("totalPrice").value) + parseInt(document.getElementById("totalPrice_1").value) + parseInt(document.getElementById("totalPrice_2").value);
+	}
+	
+	// 3
+	function priceCalc_3() {
+		document.getElementById("supplyPrice_3").value = document.getElementById("productPrice_3").value * document.getElementById("productQuan_3").value;
+		document.getElementById("vat_3").value = document.getElementById("supplyPrice_3").value / 10;
+		document.getElementById("totalPrice_3").value = parseInt(document.getElementById("supplyPrice_3").value) + parseInt(document.getElementById("vat_3").value);
+		document.getElementById("totalAmount").value = parseInt(document.getElementById("totalPrice").value) + parseInt(document.getElementById("totalPrice_1").value) + parseInt(document.getElementById("totalPrice_2").value) + parseInt(document.getElementById("totalPrice_3").value);
+	}
+	
+	// 4
+	function priceCalc_4() {
+		document.getElementById("supplyPrice_4").value = document.getElementById("productPrice_4").value * document.getElementById("productQuan_4").value;
+		document.getElementById("vat_4").value = document.getElementById("supplyPrice_4").value / 10;
+		document.getElementById("totalPrice_4").value = parseInt(document.getElementById("supplyPrice_4").value) + parseInt(document.getElementById("vat_4").value);
+		document.getElementById("totalAmount").value = parseInt(document.getElementById("totalPrice").value) + parseInt(document.getElementById("totalPrice_1").value) + parseInt(document.getElementById("totalPrice_2").value) + parseInt(document.getElementById("totalPrice_3").value) + parseInt(document.getElementById("totalPrice_4").value);
 	}
 	
 	$(document).ready(function() {
@@ -231,50 +308,151 @@ body {
 		});
 	});
 	
+	// 1
+	$(document).on("keyup","#productQuan_1",function(){ 
+		var productQuan_1 = $('#productQuan_1').val();
+		var productPrice_1 = $('#productPrice_1').val();
+		var supplyPrice_1 = productQuan_1 * productPrice_1;
+		$('#supplyPrice_1').text(supplyPrice_1);
+	});
+	
+	//
+	$(document).on("keyup","#productPrice_1",function(){  
+		var productQuan_1 = $('#productQuan_1').val();
+		var productPrice_1 = $('#productPrice_1').val();
+		var supplyPrice_1 = productQuan_1 * productPrice_1;
+		$('#supplyPrice_1').text(supplyPrice_1);
+	});
+	
+	//
+	$(document).on("keyup","#totalAmount_1",function(){
+		var productQuan_1 = $('#productQuan_1').val();
+		var productPrice_1 = $('#productPrice_1').val();
+		var supplyPrice_1 = productQuan_1 * productPrice_1;
+		$('#supplyPrice_1').text(supplyPrice_1);
+	});
+	
+	// 2
+	$(document).on("keyup","#productQuan_2",function(){ 
+		var productQuan_2 = $('#productQuan_2').val();
+		var productPrice_2 = $('#productPrice_2').val();
+		var supplyPrice_2 = productQuan_2 * productPrice_2;
+		$('#supplyPrice_2').text(supplyPrice_2);
+	});
+	
+	//
+	$(document).on("keyup","#productPrice_2",function(){  
+		var productQuan_2 = $('#productQuan_2').val();
+		var productPrice_2 = $('#productPrice_2').val();
+		var supplyPrice_2 = productQuan_2 * productPrice_2;
+		$('#supplyPrice_2').text(supplyPrice_2);
+	});
+	
+	//
+	$(document).on("keyup","#totalAmount_2",function(){
+		var productQuan_2 = $('#productQuan_2').val();
+		var productPrice_2 = $('#productPrice_2').val();
+		var supplyPrice_2 = productQuan_2 * productPrice_2;
+		$('#supplyPrice_2').text(supplyPrice_2);
+	});
+	
+	// 3
+	$(document).on("keyup","#productQuan_3",function(){ 
+		var productQuan_3 = $('#productQuan_3').val();
+		var productPrice_3 = $('#productPrice_3').val();
+		var supplyPrice_3 = productQuan_3 * productPrice_3;
+		$('#supplyPrice_3').text(supplyPrice_3);
+	});
+	
+	//
+	$(document).on("keyup","#productPrice_3",function(){  
+		var productQuan_3 = $('#productQuan_3').val();
+		var productPrice_3 = $('#productPrice_3').val();
+		var supplyPrice_3 = productQuan_3 * productPrice_3;
+		$('#supplyPrice_3').text(supplyPrice_3);
+	});
+	
+	//
+	$(document).on("keyup","#totalAmount_3",function(){
+		var productQuan_3 = $('#productQuan_3').val();
+		var productPrice_3 = $('#productPrice_3').val();
+		var supplyPrice_3 = productQuan_3 * productPrice_3;
+		$('#supplyPrice_3').text(supplyPrice_3);
+	});
+	
+	// 4
+	$(document).on("keyup","#productQuan_4",function(){ 
+		var productQuan_4 = $('#productQuan_4').val();
+		var productPrice_4 = $('#productPrice_4').val();
+		var supplyPrice_4 = productQuan_4 * productPrice_4;
+		$('#supplyPrice_4').text(supplyPrice_4);
+	});
+	
+	//
+	$(document).on("keyup","#productPrice_4",function(){  
+		var productQuan_4 = $('#productQuan_4').val();
+		var productPrice_4 = $('#productPrice_4').val();
+		var supplyPrice_4 = productQuan_4 * productPrice_4;
+		$('#supplyPrice_4').text(supplyPrice_4);
+	});
+	
+	//
+	$(document).on("keyup","#totalAmount_4",function(){
+		var productQuan_4 = $('#productQuan_4').val();
+		var productPrice_4 = $('#productPrice_4').val();
+		var supplyPrice_4 = productQuan_4 * productPrice_4;
+		$('#supplyPrice_4').text(supplyPrice_4);
+	});
+	
 	$(function() {
 		$( ".datepicker" ).datepicker({ minDate: 0});
 	});
 	
-	$('#delete_line_button').click(function() {
-		if ($("input:checkbox[name='deleteLine']:checked").length === 0) {
-			alert("삭제할 항목을 선택해 주세요.");
-			return;
-		}
+	function addRow() {		
+		var mytable = document.getElementById('tableBody');
+		var row = mytable.insertRow();
 		
-		$("input:checkbox[name='deleteLine']:checked").each(function(k, kVal) {
-			colsole.log("kVal ::", kVal.parentElement.parentElement.parentElement);
-			let a = kVal.parentElement.parentElement.parentElement;
-			$(th).remove();
-		});
-	});
-	
-	function tableCreate() {
-		var tc = new Array();
-		var html = '';
+		cell0 = row.insertCell(0);
+		cell1 = row.insertCell(1);
+		cell2 = row.insertCell(2);
+		cell3 = row.insertCell(3);
+		cell4 = row.insertCell(4);
+		cell5 = row.insertCell(5);
+		cell6 = row.insertCell(6);
+		cell7 = row.insertCell(7);
+		cell8 = row.insertCell(8);
+		cell9 = row.insertCell(9);
+		cell10 = row.insertCell(10);
 		
-		for(key in tc) {
-			html += '<tr>';
-			html += '<td>'+tc[key].name+'</td>';
-			html += '</tr>';
-		}
+		cell0.innerHTML = '<td class="tg-baqh"><div align="center"><input type="checkbox" name="deleteRowChk"></div></td>';
+		cell1.innerHTML = '<td class="tg-baqh"><input type="text" class="table-input-style" id="productCode_' + (mytable.rows.length-1) + '" name="productCode_' + (mytable.rows.length-1) + '" onclick="productSearch_' + (mytable.rows.length-1) + '();" required readonly></td>';
+		cell2.innerHTML = '<td class="tg-baqh"><input type="text" class="table-input-style" id="productName_' + (mytable.rows.length-1) + '" name="productName_' + (mytable.rows.length-1) + '" onclick="productSearch_' + (mytable.rows.length-1) + '();" required readonly></td>';
+		cell3.innerHTML = '<td class="tg-baqh"><input type="text" class="table-input-style" id="productColor_' + (mytable.rows.length-1) + '" name="productColor_' + (mytable.rows.length-1) + '" required readonly></td>';
+		cell4.innerHTML = '<td class="tg-baqh"><input type="text" class="table-input-style" id="productMeasure_' + (mytable.rows.length-1) + '" name="productMeasure_' + (mytable.rows.length-1) + '" required readonly></td>';
+		cell5.innerHTML = '<td class="tg-baqh"><input type="text" name="productQuan_' + (mytable.rows.length-1) + '" class="table-input-style" id="productQuan_' + (mytable.rows.length-1) + '" onkeyup="priceCalc_' + (mytable.rows.length-1) + '()"></td>';
+		cell6.innerHTML = '<td class="tg-baqh"><input type="text" name="productPrice_' + (mytable.rows.length-1) + '" class="table-input-style" id="productPrice_' + (mytable.rows.length-1) + '" onkeyup="priceCalc_' + (mytable.rows.length-1) + '()" required></td>';
+		cell7.innerHTML = '<td class="tg-baqh"><input type="text" class="table-input-style" id="supplyPrice_' + (mytable.rows.length-1) + '" name="supplyPrice_' + (mytable.rows.length-1) + '" required readonly></td>';
+		cell8.innerHTML = '<td class="tg-baqh"><input type="text" class="table-input-style" id="vat_' + (mytable.rows.length-1) + '" name="vat_' + (mytable.rows.length-1) + '" required readonly></td>';
+		cell9.innerHTML = '<td class="tg-baqh"><input type="text" class="table-input-style" id="totalPrice_' + (mytable.rows.length-1) + '" name="totalPrice_' + (mytable.rows.length-1) + '" onkeyup="priceCalc_' + (mytable.rows.length-1) + '()" required readonly></td>';
+		cell10.innerHTML = '<td class="tg-baqh"><input type="text" name="orderNote_' + (mytable.rows.length-1) + '" class="table-input-style" id="orderNote_' + (mytable.rows.length-1) + '"></td>';
 		
-		$("#dynamicTbody").empty();
-		$("#dynamicTbody").append(html);
+// 		alert(cell1.innerHTML);
 	}
 	
-// 	function setResList(tdArr) {
-// 		for(var i=0; i<tdArr.length; i++) {
-// 			var trCnt = ($".orderTable tbody tr").length;
-// 			$(".orderTable tbody").append($("#resTr").html());
-// 			var lastTr = $("orderTable tbody tr:last")
-// 	        $(lastTr).find("td[name='productCode']").append(resArr[i].productCode);
-// 	        $(lastTr).find("td[name='productName']").append(resArr[i].productName);
-// 	        $(lastTr).find("td[name='productColor']").append(resArr[i].productColor);
-// 	        $(lastTr).find("td[name='productMeasure']").append(resArr[i].productMeasure);
-// 	        $(lastTr).find("td[name='productPrice']").append(resArr[i].productPrice);
-// 		}
-// 	}
-</script>
+	function deleteRow() {
+		var mytable = document.getElementById('tableBody');
+		
+		for(var i=1; i<mytable.rows.length; i++) {
+			var chkbox = mytable.rows[i].cells[0].childNodes[0].childNodes[0].checked;
+			
+			if(chkbox) {
+				mytable.deleteRow(i);
+				i--;
+			}
+		}
+	}
+	
+</script language="javascript">
 
 </head>
 <body>
@@ -341,15 +519,15 @@ body {
 						<div class="col">
 							<div class="table_top">
 								<label for="orderProduct" class="order_title">수주품목</label> <input
-									type="button" name="deleteLine" id="delete_line_button"
-									class="delete_line_button" value="행 삭제"><input
-									type="button" name="orderNum" class="product_search_button"
-									value="품목찾기" onclick="productSearch();">
+									type="button" name="productSearchBtn"
+									class="product_search_button" value="품목찾기"
+									onclick="productSearch();">
 
 							</div>
 							<table class="table.txc-table tg orderTable">
 								<thead>
 									<tr>
+										<th class="tg-baqh"></th>
 										<th class="tg-baqh">품목코드</th>
 										<th class="tg-baqh">품목이름</th>
 										<th class="tg-baqh">색상</th>
@@ -360,31 +538,12 @@ body {
 										<th class="tg-baqh">부가세</th>
 										<th class="tg-baqh">품목총액</th>
 										<th class="tg-baqh">비고</th>
-										<th class="tg-baqh"></th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody id="tableBody">
 									<tr>
-									</tr>
-								</tbody>
-							</table>
-							<table class="table.txc-table tg orderTable">
-								<tbody id="resTr">
-									<tr>
-<!-- 										<td class="tg-baqh" name="productCode"></td> -->
-<!-- 										<td class="tg-baqh" name="productName"></td> -->
-<!-- 										<td class="tg-baqh" name="productColor"></td> -->
-<!-- 										<td class="tg-baqh" name="productMeasure"></td> -->
-<!-- 										<td class="tg-baqh" name="productQuan"><input type="text" -->
-<!-- 											name="productQuan" class="table-input-style" id="productQuan" -->
-<!-- 											onkeyup="priceCalc()"></td> -->
-<!-- 										<td class="tg-baqh" name="productPrice"></td> -->
-<!-- 										<td class="tg-baqh" name="supplyPrice"></td> -->
-<!-- 										<td class="tg-baqh" name="vat"></td> -->
-<!-- 										<td class="tg-baqh" name="totalPrice"></td> -->
-<!-- 										<td class="tg-baqh" name="orderNote"><input type="text" -->
-<!-- 											name="orderNote" class="table-input-style" id="orderNote"></td> -->
-<!-- 										<td class="tg-baqh"></td> -->
+										<td class="tg-baqh"></td>
+
 										<td class="tg-baqh"><input type="text"
 											class="table-input-style" id="productCode" name="productCode"
 											onclick="productSearch();" required readonly></td>
@@ -423,22 +582,27 @@ body {
 
 										<td class="tg-baqh"><input type="text" name="orderNote"
 											class="table-input-style" id="orderNote"></td>
-											
-											<td class="tg-baqh"><input type="text" name="rowDelete"
-											class="table-input-style" id="rowDelete"></td>
 									</tr>
+
+								</tbody>
+								<tbody>
 									<tr>
 										<th colspan='5' class="tg-baqh">총액</th>
 										<td colspan='6'><input type="text"
 											class="table-input-style" id="totalAmount" name="totalAmount"
-											onkeyup="priceCalc()" required readonly></td>
+											onkeyup="priceCalc_1()" required readonly></td>
 									</tr>
 								</tbody>
 							</table>
 
 						</div>
 					</div>
-					<div class="mb-4"></div>
+					<div class="buttonOps">
+						<input type="button" name="addRowBtn" class="add_row_button"
+							value="행추가" onclick="addRow();"> <input type="button"
+							name="deleteRowBtn" class="delete_row_button" value="행삭제"
+							onclick="deleteRow();">
+					</div>
 					<button class="btn btn-set btn-lg btn-block" type="submit">등록</button>
 				</form>
 			</div>
@@ -459,6 +623,5 @@ body {
       	});
     	}, false);
 	</script>
-
 </body>
 </html>

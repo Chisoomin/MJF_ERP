@@ -108,8 +108,8 @@ body {
 </style>
 
 <script>
-	function sendProductValue(productCode, productName, productColor, productMeasure, productPrice) {
-		opener.setProductValue(productCode, productName, productColor, productMeasure, productPrice);
+	function sendProductValue2(productCode_2, productName_2, productColor_2, productMeasure_2, productPrice_2) {
+		opener.setProductValue2(productCode_2, productName_2, productColor_2, productMeasure_2, productPrice_2);
 		window.close();
 	}
 </script>
@@ -153,12 +153,12 @@ body {
 												
 											%>
 											<tr>
-												<td id="productCode"><%=rs.getString("product_code") + String.format("%03d", rs.getInt("product_num"))%></td>
-												<td id="productName"><a
-													href="javascript:sendProductValue('<%=rs.getString("product_code") + String.format("%03d", rs.getInt("product_num"))%>', '<%=rs.getString("product_name")%>', '<%=rs.getString("product_color")%>', '<%=rs.getString("product_measure")%>', '<%=rs.getString("product_price")%>')"><%=rs.getString("product_name")%></a></td>
-												<td id="productColor"><%=rs.getString("product_color")%></td>
-												<td id="productMeasure"><%=rs.getString("product_measure")%></td>
-												<td id="productPrice"><%=rs.getString("product_price")%></td>
+												<td id="productCode_2"><%=rs.getString("product_code") + String.format("%03d", rs.getInt("product_num"))%></td>
+												<td id="productName_2"><a
+													href="javascript:sendProductValue2('<%=rs.getString("product_code") + String.format("%03d", rs.getInt("product_num"))%>', '<%=rs.getString("product_name")%>', '<%=rs.getString("product_color")%>', '<%=rs.getString("product_measure")%>', '<%=rs.getString("product_price")%>')"><%=rs.getString("product_name")%></a></td>
+												<td id="productColor_2"><%=rs.getString("product_color")%></td>
+												<td id="productMeasure_2"><%=rs.getString("product_measure")%></td>
+												<td id="productPrice_2"><%=rs.getString("product_price")%></td>
 											</tr>
 											<%
 												
