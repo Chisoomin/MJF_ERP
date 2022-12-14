@@ -3,12 +3,22 @@
 <%@page import="java.sql.*"%>
 
 <%
-String color_rs[] = new String[20];
-String ini_rs[] = new String[20];
+String color_rs[] = new String[20]; //색깔 이름
+String color_ini_rs[] = new String[20]; // 색깔 코드
+
+String type_rs[] = new String[20];// 품목 타입 이름  
+String type_ini_rs[] = new String[20]; // 품목 코드(소분류) 
+
+String storage_rs[] = new String[20]; // 창고용 rs
+
 Connection conn = null;
 Statement stmt = null;
-ResultSet rs = null;
-ResultSet ss = null;
+//Statement stmt_storage = null; // 창고용 stmt
+
+ResultSet crs = null; // color_result_set
+ResultSet trs = null; //type_result_set
+ResultSet srs = null; // storage_result_set
+
 int columnCount = 0;
 
 String url = "jdbc:mysql://mjfdb-aws.cxswvbzpdoox.ap-northeast-1.rds.amazonaws.com/MJFdb";
@@ -17,36 +27,61 @@ String password = "mjfrootpw";
 
 Class.forName("com.mysql.jdbc.Driver");
 conn = DriverManager.getConnection(url, user, password);
-PreparedStatement pstmt = null;
+stmt = conn.createStatement();
+PreparedStatement c_pstmt = null;
+PreparedStatement t_pstmt = null;
+PreparedStatement s_pstmt = null;
 
 try {
-	String sql = "SELECT color_data, color_ini from MJFdb.masterdata_color";
-	//String sql_ini = "SELECT color_ini from MJFdb.masterdata_color";
+	// 기준정보 받는 단계
+	String sql_color = "SELECT color_data, color_ini from MJFdb.masterdata_color";
 	stmt = conn.createStatement();
-	rs = stmt.executeQuery(sql);
-	pstmt = conn.prepareStatement(sql);
-	//ss = stmt.executeQuery(sql_ini);
-	/* ResultSetMetaData rsmd = rs.getMetaData();
-	columnCount = rsmd.getColumnCount(); */
-	int i = 0;
-	while (rs.next()) {
-		color_rs[i] = rs.getString("color_data");
-		ini_rs[i] = rs.getString("color_ini");
-		//ini_ss[i] = ss.getString(1);
+	crs = stmt.executeQuery(sql_color);
+	c_pstmt = conn.prepareStatement(sql_color);
+
+	String sql_type = "SELECT type_data, type_ini from MJFdb.masterdata_type";
+	stmt = conn.createStatement();
+	trs = stmt.executeQuery(sql_type);
+	t_pstmt = conn.prepareStatement(sql_type);
+
+	String sql_storage = "SELECT storage_data from MJFdb.masterdata_storage";
+	stmt = conn.createStatement();
+	srs = stmt.executeQuery(sql_storage);
+	s_pstmt = conn.prepareStatement(sql_storage);
+
+	int i = 0, j = 0, k = 0;
+	while (crs.next()) {
+		color_rs[i] = crs.getString("color_data");
+		color_ini_rs[i] = crs.getString("color_ini");
 		i++;
 	}
-	/* out.println("<script>alert('"+team_rs[2]+"');</script>"); */
+	while (trs.next()) {
+		type_rs[j] = trs.getString("type_data");
+		type_ini_rs[j] = trs.getString("type_ini");
+		j++;
+	}
+	while (srs.next()) {
+		storage_rs[k] = srs.getString("storage_data");
+		//System.out.println(storage_rs[k]);
+		k++;
+	}
 
 } catch (SQLException ex) {
 	out.println("SQLException " + ex.getMessage());
 } finally {
-	if (rs != null)
-		rs.close();
-	//ss.close();
-	if (stmt != null)
-		stmt.close();
-	if (conn != null)
-		conn.close();
+	//if (crs != null)
+	crs.close();
+	//if (trs != null)
+	trs.close();
+	srs.close();
+	//if (stmt != null)
+	stmt.close();
+	//stmt_storage.close();
+	//if (conn != null)
+	conn.close();
+	c_pstmt.close();
+	t_pstmt.close();
+	s_pstmt.close();
 }
 %>
 
@@ -58,7 +93,7 @@ try {
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>품목 등록</title>
+<title>신규 품목 등록</title>
 
 <!-- Bootstrap CSS -->
 
@@ -109,7 +144,6 @@ body {
 	border-color: #7D766D;
 }
 
-
 .white {
 	color: #fff;
 }
@@ -137,9 +171,21 @@ body {
 								class="custom-select d-block w-100" id="productType"
 								name="productType" onchange="productTypeChange(this)">
 								<option>선택해주세요</option>
-								<option value="원재료">원재료</option>
+								<!-- <option value="원재료">원재료</option>
 								<option value="반제품">반제품</option>
-								<option value="완제품">완제품</option>
+								<option value="완제품">완제품</option>-->
+
+								<%
+								int x = 0;
+
+								for (x = 0; x < type_rs.length; x++) {
+									if (type_rs[x] == null)
+										continue;
+									out.println("<option value='" + type_rs[x] + "'>" + type_rs[x] + "</option>");
+									//System.out.print(ini_rs[x]);
+								}
+								%>
+
 							</select>
 						</div>
 
@@ -162,7 +208,6 @@ body {
 							class="form-control" id="productName" name="productName"
 							placeholder="품목명을 입력하세요" value="" required>
 					</div>
-
 
 
 					<div class="mb-3">
@@ -189,13 +234,13 @@ body {
 							<!-- DB 키워드 : BL--
 							<option value="보라색">보라색</option>
 							<!-- DB 키워드 : PU-- -->
-							<%
-							int x = 0;
 
-							for (x = 0; x < color_rs.length; x++) {
-								if (color_rs[x] == null)
+							<%
+							int y = 0;
+							for (y = 0; y < color_rs.length; y++) {
+								if (color_rs[y] == null)
 									continue;
-								out.println("<option value='" + color_rs[x] + "'>" + color_rs[x] + "</option>");
+								out.println("<option value='" + color_rs[y] + "'>" + color_rs[y] + "</option>");
 								//System.out.print(ini_rs[x]);
 							}
 							%>
@@ -251,21 +296,31 @@ body {
 
 
 					<div class="mb-3">
+
+
 						<label for="productStorage">보관 창고</label> <select
 							class="custom-select d-block w-100" id="productStorage"
 							name="productStorage">
 							<option>창고를 선택해주세요</option>
-							<option value="제1창고">제1창고</option>
-							<option value="제2창고">제2창고</option>
-							<option value="제3창고">제3창고</option>
+							<%
+							int z = 0;
+
+							for (z = 0; z < storage_rs.length; z++) {
+								if (storage_rs[z] == null)
+									continue;
+								out.println("<option value='" + storage_rs[z] + "'>" + storage_rs[z] + "</option>");
+								//System.out.print(storage_rs.length);
+							}
+							%>
+
 						</select>
 					</div>
 
 
 
 					<div class="mb-4"></div>
-					<button class="btn btn-primary btn-lg btn-block btn-set" type="submit">등록
-						완료</button>
+					<button class="btn btn-primary btn-lg btn-block btn-set"
+						type="submit">등록</button>
 
 				</form>
 
@@ -280,7 +335,7 @@ body {
 
 	function productTypeChange(e) {
 		var typeR = ["01 원목", "02 가죽", "03 유리", "04 천", "05 솜", "06 조립부품"];
-		var typeH = ["11 선반", "12 트레이", "13 수납함", "14 책꽂이", "15 동물가구", "16 무드등"];
+		var typeH = ["11 선반", "12 트레이", "13 수납함", "14 책꽂이", "15 동물가구", "16 조명"];
 		var typeF = ["21 쇼파",  "22 책상", "23 의자", "24 책장", "25 서랍", "26 침대"];
 		var target = document.getElementById("productCode");
 		

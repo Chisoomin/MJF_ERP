@@ -6,6 +6,7 @@
 Connection conn = null;
 Statement stmt = null;
 Statement stmt_snd = null;
+Statement stmt_st = null;
 PreparedStatement pstmt = null;
 PreparedStatement master_pstmt = null;
 PreparedStatement mastertype_pstmt = null;
@@ -38,7 +39,7 @@ String type = "";
 //String color = request.getParameter("productColor");
 
 String typeCode = String.valueOf(request.getParameter("productType"));
-System.out.println(typeCode);
+//System.out.println(typeCode);
 
 String code = "";
 String smallProduct = "";
@@ -46,8 +47,8 @@ String smallProduct = "";
 String productCode = String.valueOf(request.getParameter("productCode"));
 code = productCode.substring(0, 2);
 smallProduct = productCode.substring(3);
-System.out.print("품목코드는 " + code);
-System.out.print("품목 소분류는 " + smallProduct);
+//System.out.print("품목코드는 " + code);
+//System.out.print("품목 소분류는 " + smallProduct);
 
 //String code = request.getParameter("productType");
 String name = request.getParameter("productName");
@@ -69,6 +70,7 @@ try {
 	String dbsql = "SELECT color_data, color_ini from MJFdb.masterdata_color";
 	stmt = conn.createStatement();
 	stmt_snd = conn.createStatement();
+	stmt_st = conn.createStatement(); 
 
 	rss = stmt.executeQuery(dbsql);
 	master_pstmt = conn.prepareStatement(dbsql);
@@ -78,7 +80,7 @@ try {
 	mastertype_pstmt = conn.prepareStatement(mastersql);
 
 	String storagesql = "SELECT storage_data from MJFdb.masterdata_storage";
-	storage_rss = stmt_snd.executeQuery(storagesql);
+	storage_rss = stmt_st.executeQuery(storagesql);
 	storage_pstmt = conn.prepareStatement(storagesql);
 
 	// product코드랑 master db 맞추기
@@ -166,7 +168,7 @@ try {
 <body>
 	<script type="text/javascript">
 		alert("등록 되었습니다");
-		location.href = 'MJF_ProductSearch.jsp' //재고 조회 주소로 다시 이동
+		location.href = 'MJF_ProductSearch.jsp' //품목 등록 주소로 다시 이동
 	</script>
 </body>
 </html>

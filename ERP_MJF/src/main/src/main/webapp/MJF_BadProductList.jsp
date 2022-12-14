@@ -3,11 +3,14 @@
 <%@page import="java.sql.*"%>
 
 <%
-String color_rs[] = new String[20];
-String ini_rs[] = new String[20];
+String return_rs[] = new String[20];
 Connection conn = null;
 Statement stmt = null;
+Statement stmt_t = null;
+Statement stmt_t2 = null;
 ResultSet rs = null;
+ResultSet trs = null;
+ResultSet trs2 = null;
 ResultSet ss = null;
 int columnCount = 0;
 
@@ -18,11 +21,34 @@ String password = "mjfrootpw";
 Class.forName("com.mysql.jdbc.Driver");
 conn = DriverManager.getConnection(url, user, password);
 PreparedStatement pstmt = null;
+PreparedStatement pstmt_t = null;
+PreparedStatement pstmt_t2 = null;
 
-String sql = "SELECT * from MJFdb.product_table";
+String sql = "SELECT * from MJFdb.return_product";
 stmt = conn.createStatement();
 pstmt = conn.prepareStatement(sql);
 rs = pstmt.executeQuery(sql);
+
+String sql_type = "SELECT type_data, type_ini from MJFdb.masterdata_type";
+stmt_t = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+trs = stmt_t.executeQuery(sql_type);
+pstmt_t = conn.prepareStatement(sql_type);
+
+String sql_type2 = "SELECT type2_ini, type2_data, type2_code from MJFdb.masterdata_type2";
+stmt_t2 = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+trs2 = stmt_t2.executeQuery(sql_type2);
+pstmt_t2 = conn.prepareStatement(sql_type2);
+
+String type_rs[] = new String[20];// 품목 타입 이름  
+String type_ini_rs[] = new String[20]; // 품목 코드
+
+String type2_rs[] = new String[20];// 품목 타입 이름   (소분류)
+String type2_ini_rs[] = new String[20]; // 품목 코드 (소분류)
+String type2_code_rs[] = new String[20]; // 품목 코드 (소분류)
+
+String code = "", type = "", type2 = "";
+String return_type = "", return_type2 = "";
+int j = 0;
 %>
 
 
@@ -130,7 +156,7 @@ body {
 	vertical-align: middle;
 }
 
-.productRadio {
+.returnRadio {
 	width: 70%;
 	margin-left: 15%;
 	margin-right: 15%;
@@ -168,7 +194,7 @@ body {
 
 								<div class="card mb-4">
 									<div class="card-header">
-										<i class="fas fa-table me-1"></i> 품목 조회
+										<i class="fas fa-table me-1"></i> 불량 재고 조회
 									</div>
 
 									<div class="card-body">
@@ -179,137 +205,86 @@ body {
 													<th nowrap>품목 선택</th>
 													<th nowrap>품목 분류</th>
 													<th nowrap>품목 소분류</th>
-													<th nowrap>품목명</th>
-													<th nowrap>색깔</th>
 													<th nowrap>품목 코드</th>
-													<th nowrap>단위</th>
-													<th nowrap>규격</th>
+													<th nowrap>품목명</th>
 													<th nowrap>수량</th>
-													<th nowrap>입고 단가</th>
-													<th nowrap>창고명</th>
 												</tr>
 											</thead>
 											<tfoot>
 												<tr>
-													<th class="productRadio">품목 선택</th>
+													<th>품목 선택</th>
 													<th>품목 분류</th>
 													<th>품목 소분류</th>
-													<th>품목명</th>
-													<th>색깔</th>
 													<th>품목 코드</th>
-													<th>단위</th>
-													<th>규격</th>
+													<th>품목명</th>
 													<th>수량</th>
-													<th>입고 단가</th>
-													<th>창고명</th>
 												</tr>
 
 											</tfoot>
 											<tbody>
-
 												<%
 												while (rs.next()) {
-													String codenum = "";
-													String zero1 = "0";
-													String zero2 = "00";
-													String result = "";
-													codenum = rs.getString("product_num");
-													if (codenum.length() == 1) {
-														result = zero2.concat(codenum);
-														//System.out.print(codenum);
-													} else if (codenum.length() == 2) {
-														result = zero1.concat(codenum);
+													// 품목 sql 연결 완료 소분류 기준 정보도 완료
+													code = rs.getString("return_code");
+													type = code.substring(0, 1);
+													type2 = code.substring(5, 7);
+													if (rs.getString("return_trash") != null) { // 불량재고등록 완료한 항목 표에서 안보이게 하는 코드!!
+														continue;
 													}
-													
-													String productSize = "";
-													productSize = rs.getString("product_size");
-													//System.out.println(productSize);
-													if(productSize.equals("-x-x-")){
-														productSize = "-";
+
+													j = 0;
+													while (trs.next()) {
+														type_rs[j] = trs.getString("type_data");
+														type_ini_rs[j] = trs.getString("type_ini");
+														if (type.equals(type_ini_rs[j])) {
+															return_type = type_rs[j];
+													while (trs2.next()) {
+														type2_rs[j] = trs2.getString("type2_data");
+														type2_code_rs[j] = trs2.getString("type2_code");
+// 														System.out.println("type2 : " + type2);
+// 														System.out.println("type2_code_rs[j] : " + type2_code_rs[j]);
+
+														if (type2.equals(type2_code_rs[j])) {
+															return_type2 = type2_rs[j];
+														}
 													}
+
+													break;
+														}
+
+														j++;
+													}
+
+
+													trs.beforeFirst();
+													trs2.beforeFirst();
 												%>
 												<tr>
-													<th><label for="productSelect"></label><input
-														id="productSelect" class="productRadio"
-														name="productSelect" type="radio"
-														value=<%=rs.getString("product_num")%>></th>
-													<th id="productType" name="productType"><%=rs.getString("product_type")%></th>
-													<th id="productType2" name="productType2"><%=rs.getString("product_type2")%></th>
-													<th id="productName" name="productName"><%=rs.getString("product_name")%></th>
-													<th id="productColor" name="productColor"><%=rs.getString("product_color")%></th>
-													<th id="productCode" name="productCode"><%=rs.getString("product_code") + result%></th>
-													<th id="productMeasure" name="productMeasure"><%=rs.getString("product_measure")%></th>
-													<th id="productSize" name="productSize"><%=productSize%></th>
-													<th id="productAmount" name="productAmount"><%=rs.getString("product_amount")%></th>
-													<th id="productAmount" name="productPrice"><%=rs.getString("product_price")%></th>
-													<th id="productStorage" name="productStorage"><%=rs.getString("product_storage")%></th>
+													<th><label for="returnSelect"></label><input
+														id="returnSelect" class="returnRadio" name="returnSelect"
+														type="radio" value=<%=rs.getString("return_num")%>>
+													</th>
+													<th id="returnType" name="returnType"><%=return_type%></th>
+													<th id="returnType2" name="returnType2"><%=return_type2%></th>
+													<th id="returnName" name="returnName"><%=rs.getString("return_name")%></th>
+													<th id="returnCode" name="returnCode"><%=rs.getString("return_code")%></th>
+													<th id="returnAmount" name="returnAmount"><%=rs.getInt("return_amount")%></th>
 												</tr>
 												<%
 												}
 												%>
-												<!-- 
-											<tr>
-												<th>완제품</th>
-												<th>소파</th>
-												<th>2인 쇼파</th>
-												<th>F-WH-21-001</th>
-												<th>하양</th>
-												<th>1개</th>
-												<th>500x500x600</th>
-												<th>20</th>
-												<th>300000</th>
-												<th>제1창고</th>
-											</tr>
-											<tr>
-												<th>반제품</th>
-												<th>조립식 선반</th>
-												<th>H-BR-11-002</th>
-												<th>갈색</th>
-												<th>1개</th>
-												<th>-</th>
-												<th>30개</th>
-												<th>150000</th>
-												<th>제2창고</th>
-											</tr>-->
 
 											</tbody>
 
 										</table>
 
 									</div>
-
-									<script type="text/javascript">
-					var popupX = (document.body.offsetWidth / 2) - (document.body.offsetWidth / 4);
-					// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
-					
-					var popupY= (window.screen.height / 2) - (window.screen.height / 4);
-					// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
-					
-					function popup(url,width,height){
-  						var sst = window.open(url,'popwin','top='+((screen.availHeight - height)/2 - 40) +', left='+((screen.availWidth - width)/2 - 40)+', width='+width+', height='+height+', toolbar=0, directories=0, status=0, menubar=0, scrollbars=0, resizable=0');
-					  if(sst){
-					    sst.focus();
-					  }
-					}
-				</script>
-
-									<!-- <button class="btn btn-set2 btn-lg btn-block mar"
-					onclick="window.open('order_loading.jsp', 'window_name', 'width=window.screen.width /2, height=window.screen.height /2, left=window.screen.width/4, status=no, scrollbars=yes');">수주
-					불러오기</button> -->
 						</main>
 
 					</div>
-
-					<!-- 아직 변경 안함 -->
-					<button type="submit" formaction="MJF_StockRegister.jsp"
-						class="btn btn-set2 btn-lg btn-right mar btn-set btn-margin">생산
-						수량 등록</button>
-					
 					<button type="submit"
 						class="btn btn-set2 btn-lg btn-right mar btn-set"
-						formaction='MJF_BadProductList.jsp'>불량 재고 등록</button>
-
-					<!-- onclick="popup('MJF_BadStockRegister.jsp',window.screen.width,window.screen.height);" -->
+						formaction='MJF_BadStockRegister.jsp'>불량 재고 등록</button>
 
 				</form>
 
